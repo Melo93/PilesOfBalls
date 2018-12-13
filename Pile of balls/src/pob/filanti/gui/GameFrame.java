@@ -5,25 +5,25 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import pob.filanti.core.GameConfig;
+
 public class GameFrame extends JFrame{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final int HEIGHT = 1040;
-	private static final int WIDTH = 805;
 	private GamePanel gamePanel; 
 	
 	public GameFrame() {
 		this.setTitle("Pile of Balls"); //setto Titolo
-		this.setBounds(0,0,HEIGHT,WIDTH); //setto l'inizio dei pixel(x,y) e altezza e larghezza
+		this.setPreferredSize(new Dimension(GameConfig.GRAPHIC_GAME_WIDTH,GameConfig.GRAPHIC_GAME_HEIGHT));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true); // visibilità si del frame
 		gamePanel = new GamePanel(this); // // crea il nuovo pannello nella classe frame
 		this.setContentPane(gamePanel); // aggiungo il pannello al frame
 		this.setLocationRelativeTo(gamePanel); //Imposto la posizione della finestra rispetto al gamepanel
 		this.pack(); //adattamento layout delle componenti
-		this.setSize(new Dimension(HEIGHT, WIDTH));
+//		this.setSize(new Dimension(HEIGHT, WIDTH));
 	}
 	
 	public void startMenuPanel() {

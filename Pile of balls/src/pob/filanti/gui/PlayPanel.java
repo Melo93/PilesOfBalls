@@ -2,12 +2,16 @@ package pob.filanti.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import pob.filanti.core.GameConfig;
 import pob.filanti.core.GameManager;
+import pob.filanti.core.TrisBalls;
+import pob.filanti.updater.Updater;
 
 public class PlayPanel extends JPanel{
 	/**
@@ -26,6 +30,8 @@ public class PlayPanel extends JPanel{
 	JButton v;
 	JButton b;
 	JButton gi;
+	Updater update;
+	TrisBalls t;
 	
 	public PlayPanel(GameFrame gameFrame) {
 		this.setVisible(true);
@@ -54,6 +60,8 @@ public class PlayPanel extends JPanel{
 		v = new JButton(new ImageIcon(ImageProvider.getPallinaVerde()));
 		gi = new JButton(new ImageIcon(ImageProvider.getPallinaGialla()));
 		b = new JButton(new ImageIcon(ImageProvider.getPallinaBlu()));
+		t=GameManager.getInstance().getCurrent();
+		
 		
 		this.add(backButton);
 		this.add(leftButton);
@@ -61,24 +69,19 @@ public class PlayPanel extends JPanel{
 		this.add(roundRightButton);
 		this.add(roundLeftButton);
 		this.add(speedButton);
-		this.add(r);
-		this.add(v);
+	//	this.add(r);
+	//	this.add(v);
 		this.add(gi);
 		this.add(b);
 		this.setVisible(true);
 		
+		update=new Updater(this);
+		update.start();
+		
+		
 		// CREO UN NUOVO TREAD, USANDO L'INTERFACCIA RUNNABLE, CHE VIENE
 				// RIDEFINITO ATTRAVERSO UNA INNER CLASS PER EFFETTUARE IL REPAINT.
-				this.runnable = new Runnable() {
-
-					@Override 
-					public void run() {
-						repaint();
-					}
-
-				};
-				this.matrix = new GameManager(4, runnable);
-				//this.matrix.printMatrix();
+			
 	}
 	 
 	@Override
@@ -116,15 +119,30 @@ public class PlayPanel extends JPanel{
 		speedButton.setContentAreaFilled(false);
 		speedButton.setBorderPainted(false);
 		
-		r.setBounds(229,36,50,50);
-		r.setOpaque(false);
-		r.setContentAreaFilled(false);
-		r.setBorderPainted(false);
 		
-		v.setBounds(179,36,50,50);
-		v.setOpaque(false);
-		v.setContentAreaFilled(false);
-		v.setBorderPainted(false);
+		if(t.getB1().getColor()==0) g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y , null);
+		else if(t.getB1().getColor()==1) g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y, null);
+		else if(t.getB1().getColor()==2) g.drawImage(ImageProvider.getPallinaVerde(), GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y, null);
+		
+		if(t.getB2().getColor()==0) g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).x ,GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).y, null);
+		else if(t.getB2().getColor()==1) g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).x ,GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).y, null);
+		else if(t.getB2().getColor()==2) g.drawImage(ImageProvider.getPallinaVerde(),GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).x ,GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).y, null);
+		
+		if(t.getB3().getColor()==0) g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
+		else if(t.getB3().getColor()==1) g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
+		else if(t.getB3().getColor()==2) g.drawImage(ImageProvider.getPallinaVerde(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
+		
+		System.out.println(t.toString());
+//		
+//		r.setBounds(229,36,50,50);
+//		r.setOpaque(false);
+//		r.setContentAreaFilled(false);
+//		r.setBorderPainted(false);
+//		
+//		v.setBounds(179,36,50,50);
+//		v.setOpaque(false);
+//		v.setContentAreaFilled(false);
+//		v.setBorderPainted(false);
 		
 		b.setBounds(200,200,50,50);
 		b.setOpaque(false);
@@ -135,39 +153,7 @@ public class PlayPanel extends JPanel{
 		gi.setOpaque(false);
 		gi.setContentAreaFilled(false);
 		gi.setBorderPainted(false);
-		
-		// LINEE DI CONTORNO DELLA MATRICE
-		g.drawLine(179, 36, 179, 734);
-		g.drawLine(229, 36, 229, 734);
-		g.drawLine(279, 36, 279, 734);
-		g.drawLine(329, 36, 329, 734);
-		g.drawLine(379, 36, 379, 734);
-		g.drawLine(429, 36, 429, 734);
-		g.drawLine(479, 36, 479, 734);
-		g.drawLine(529, 36, 529, 734);
-		g.drawLine(579, 36, 579, 734);
-		g.drawLine(629, 36, 629, 734);
-		g.drawLine(679, 36, 679, 734);
-		g.drawLine(729, 36, 729, 734);
-		g.drawLine(779, 36, 779, 734);
-		g.drawLine(829, 36, 829, 734);
-		
-		g.drawLine(179, 36, 845, 36);
-		g.drawLine(179, 86, 845, 86);
-		g.drawLine(179, 136, 845, 136);
-		g.drawLine(179, 186, 845, 186);
-		g.drawLine(179, 236, 845, 236);
-		g.drawLine(179, 286, 845, 286);
-		g.drawLine(179, 336, 845, 336);
-		g.drawLine(179, 386, 845, 386);
-		g.drawLine(179, 436, 845, 436);
-		g.drawLine(179, 486, 845, 486);
-		g.drawLine(179, 536, 845, 536);
-		g.drawLine(179, 586, 845, 586);
-		g.drawLine(179, 636, 845, 636);
-		g.drawLine(179, 686, 845, 686);
-		g.drawLine(179, 736, 845, 736);
-		g.drawLine(179, 786, 845, 786);
+	
 	}
 	
 	public void start() {

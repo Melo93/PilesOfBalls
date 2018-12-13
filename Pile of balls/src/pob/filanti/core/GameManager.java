@@ -1,10 +1,28 @@
 package pob.filanti.core;
 public class GameManager {
-	private int dimMatrix;
-	AbstractObject[][] matrix;
-	Runnable runnable;
-
-	public GameManager(int dimMatrix, Runnable runnable) {
-		
+	
+	private static GameManager instance;
+	
+	public static GameManager getInstance() {
+		if(instance==null) {
+			instance=new GameManager();
+		}
+		return instance;
 	}
+	
+	private TrisBalls current;
+	
+	private GameManager() {
+		current=new TrisBalls();
+	}
+	
+	public void update() {
+		current.update();
+	}
+
+	public TrisBalls getCurrent() {
+		return current;
+	}
+
+	
 }

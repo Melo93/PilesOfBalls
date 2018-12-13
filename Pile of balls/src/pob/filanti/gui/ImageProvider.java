@@ -1,13 +1,14 @@
 package pob.filanti.gui;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class ImageProvider {
 	
-	private static Image pallinaRossa, pallinaBlu, pallinaVerde, pallinaGialla, startGame1, startGame2, newgame1, newgame2, exit1, 
+	private static BufferedImage pallinaRossa, pallinaBlu, pallinaVerde, pallinaGialla, startGame1, startGame2, newgame1, newgame2, exit1, 
 		exit2, backgroundStartPanel, backgroundMenuPanel, back1, back2, left, right, roundleft, roundright, speed, backgroundPlayPanel, left2, 
 		right2, roundleft2, roundright2, speed2; 
 	
