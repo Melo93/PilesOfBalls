@@ -38,7 +38,7 @@ public class KeyboardManager implements KeyListener{
 			break;
 		
 		case KeyEvent.VK_UP:
-			if(GameManager.getInstance().getCurrent().getPosition()>6) {
+			if(GameManager.getInstance().getCurrent().getPosition()>7) {
 				GameManager.getInstance().getCurrent().setPosition(1);
 				GameManager.getInstance().getCurrent().setPosition(GameManager.getInstance().getCurrent().getPosition());
 			}
@@ -49,7 +49,7 @@ public class KeyboardManager implements KeyListener{
 			break;
 			
 		case KeyEvent.VK_DOWN:
-			if(GameManager.getInstance().getCurrent().getPosition()>6) {
+			if(GameManager.getInstance().getCurrent().getPosition()>7) {
 				GameManager.getInstance().getCurrent().setPosition(1);
 				GameManager.getInstance().getCurrent().setPosition(GameManager.getInstance().getCurrent().getPosition());
 			}

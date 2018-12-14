@@ -20,7 +20,7 @@ public class Updater extends Thread {
 			try {
 				GameManager.getInstance().update();
 				pp.repaint();
-				sleep(1000);
+				sleep(800);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -44,9 +44,6 @@ public class TrisBalls {
 	public void rotateLeft() {
 		switch(position) {
 		case 1:
-			b1.setCenter(new Point(b1.getCenter().x,b1.getCenter().y));	//pallina in alto
-			b2.setCenter(new Point(b2.getCenter().x,b2.getCenter().y));	//pallina in basso sinistra
-			b3.setCenter(new Point(b3.getCenter().x,b3.getCenter().y));	//pallina in basso destra
 			break;
 		case 2:
 			b1.setCenter(new Point(b1.getCenter().x-1,b1.getCenter().y));	//pallina in alto a sinistra
@@ -69,9 +66,15 @@ public class TrisBalls {
 			b3.setCenter(new Point(b3.getCenter().x,b3.getCenter().y+2));	//pallina in basso a sinistra
 			break;
 		case 6: 
-			b1.setCenter(new Point(b1.getCenter().x-1,b1.getCenter().y));	//pallina in alto a destra
-			b2.setCenter(new Point(b2.getCenter().x,b2.getCenter().y-2));	//pallina in alto a sinistra
+			b1.setCenter(new Point(b1.getCenter().x,b1.getCenter().y-2));	//pallina in alto a destra
+			b2.setCenter(new Point(b2.getCenter().x-1,b2.getCenter().y));	//pallina in alto a sinistra
 			b3.setCenter(new Point(b3.getCenter().x+1,b3.getCenter().y));	//pallina in basso centrale
+			break;
+		case 7: 
+			b1.setCenter(new Point(b1.getCenter().x-1,b1.getCenter().y));	//pallina in alto centrale
+			b2.setCenter(new Point(b2.getCenter().x,b2.getCenter().y+2));	//pallina in basso a sinistra
+			b3.setCenter(new Point(b3.getCenter().x+1,b3.getCenter().y));   //pallina in basso a destra
+			break;
 		}
 		
 	}
@@ -79,9 +82,6 @@ public class TrisBalls {
 	public void rotateRight() {
 		switch(position) {
 		case 1:
-			b1.setCenter(new Point(b1.getCenter().x,b1.getCenter().y));	//pallina in alto
-			b2.setCenter(new Point(b2.getCenter().x,b2.getCenter().y));	//pallina in basso sinistra
-			b3.setCenter(new Point(b3.getCenter().x,b3.getCenter().y));	//pallina in basso destra
 			break;
 		case 2:
 			b1.setCenter(new Point(b1.getCenter().x+1,b1.getCenter().y));	//pallina in alto a destra
@@ -107,6 +107,12 @@ public class TrisBalls {
 			b1.setCenter(new Point(b1.getCenter().x,b1.getCenter().y-2));	//pallina in alto a sinistra
 			b2.setCenter(new Point(b2.getCenter().x-1,b2.getCenter().y));	//pallina in basso centrale
 			b3.setCenter(new Point(b3.getCenter().x+1,b3.getCenter().y));	//pallina in alto a destra
+			break;
+		case 7:
+			b1.setCenter(new Point(b1.getCenter().x+1,b1.getCenter().y));	//pallina in alto a centrale
+			b2.setCenter(new Point(b2.getCenter().x-1,b2.getCenter().y));	//pallina in basso a destra
+			b3.setCenter(new Point(b3.getCenter().x,b3.getCenter().y+2));	//pallina in basso a sinistra
+			break;
 		}
 	}
 	
