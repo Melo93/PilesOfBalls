@@ -15,12 +15,6 @@ public class KeyboardManager implements KeyListener{
 		this.pp=pp;
 	}
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
@@ -36,21 +30,24 @@ public class KeyboardManager implements KeyListener{
 			break;
 		
 		case KeyEvent.VK_UP:
+			if(GameManager.getInstance().getCurrent().getPosition()>6) {
+				GameManager.getInstance().getCurrent().setPosition(1);
+				GameManager.getInstance().getCurrent().setPosition(GameManager.getInstance().getCurrent().getPosition());
+			}
 			GameManager.getInstance().getCurrent().setPosition(GameManager.getInstance().getCurrent().getPosition()+1);
 			GameManager.getInstance().getCurrent().rotateLeft();
 			System.out.println(GameManager.getInstance().getCurrent().toString());
-			if(GameManager.getInstance().getCurrent().getPosition()>5)
-				GameManager.getInstance().getCurrent().setPosition(1);
+			
 			break;
 			
 		case KeyEvent.VK_DOWN:
-			
-			break;
-			
-		case KeyEvent.VK_SPACE:
-			GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x,GameManager.getInstance().getCurrent().getB1().getCenter().y+1));
-			GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x,GameManager.getInstance().getCurrent().getB2().getCenter().y+1));
-			GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x,GameManager.getInstance().getCurrent().getB3().getCenter().y+1));
+			if(GameManager.getInstance().getCurrent().getPosition()>6) {
+				GameManager.getInstance().getCurrent().setPosition(1);
+				GameManager.getInstance().getCurrent().setPosition(GameManager.getInstance().getCurrent().getPosition());
+			}
+			GameManager.getInstance().getCurrent().setPosition(GameManager.getInstance().getCurrent().getPosition()+1);
+			GameManager.getInstance().getCurrent().rotateRight();
+			System.out.println(GameManager.getInstance().getCurrent().toString());
 			break;
 		}
 		
@@ -58,8 +55,18 @@ public class KeyboardManager implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		switch(e.getKeyCode()) {
+		case KeyEvent.VK_SPACE:
+		GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x,GameManager.getInstance().getCurrent().getB1().getCenter().y+1));
+		GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x,GameManager.getInstance().getCurrent().getB2().getCenter().y+1));
+		GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x,GameManager.getInstance().getCurrent().getB3().getCenter().y+1));		
+		break;
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
 	}
 
 }

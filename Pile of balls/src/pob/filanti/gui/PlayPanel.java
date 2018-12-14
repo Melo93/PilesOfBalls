@@ -2,7 +2,6 @@ package pob.filanti.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,11 +25,6 @@ public class PlayPanel extends JPanel{
 	JButton roundLeftButton; 
 	JButton speedButton; 
 	GameManager matrix;
-	Runnable runnable; //esecutore
-	JButton r;
-	JButton v;
-	JButton b;
-	JButton gi;
 	Updater update;
 	TrisBalls t;
 	KeyboardManager keyManager;
@@ -58,10 +52,6 @@ public class PlayPanel extends JPanel{
 		speedButton = new JButton(new ImageIcon(ImageProvider.getSpeed2())); 
 		speedButton.setRolloverIcon(new ImageIcon(ImageProvider.getSpeed()));
 	
-		r = new JButton(new ImageIcon(ImageProvider.getPallinaRossa()));
-		v = new JButton(new ImageIcon(ImageProvider.getPallinaVerde()));
-		gi = new JButton(new ImageIcon(ImageProvider.getPallinaGialla()));
-		b = new JButton(new ImageIcon(ImageProvider.getPallinaBlu()));
 		t=GameManager.getInstance().getCurrent();
 		
 		
@@ -71,10 +61,6 @@ public class PlayPanel extends JPanel{
 		this.add(roundRightButton);
 		this.add(roundLeftButton);
 		this.add(speedButton);
-	//	this.add(r);
-	//	this.add(v);
-		this.add(gi);
-		this.add(b);
 		this.setVisible(true);
 		
 		keyManager=new KeyboardManager(this);
@@ -125,39 +111,34 @@ public class PlayPanel extends JPanel{
 		speedButton.setBorderPainted(false);
 		
 		
-		if(t.getB1().getColor()==0) g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y , null);
-		else if(t.getB1().getColor()==1) g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y, null);
-		else if(t.getB1().getColor()==2) g.drawImage(ImageProvider.getPallinaVerde(), GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y, null);
+		if(t.getB1().getColor()==0) {
+			g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y , null);
+		} else if(t.getB1().getColor()==1) {
+			g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y, null);
+		} else if(t.getB1().getColor()==2) {
+			g.drawImage(ImageProvider.getPallinaVerde(), GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y, null);
+		} else {
+			g.drawImage(ImageProvider.getPallinaGialla(), GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y, null);
+		}
+		if(t.getB2().getColor()==0) {
+			g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).x ,GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).y, null);
+		} else if(t.getB2().getColor()==1) {
+			g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).x ,GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).y, null);
+		} else if(t.getB2().getColor()==2) {
+			g.drawImage(ImageProvider.getPallinaVerde(),GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).x ,GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).y, null);
+		} else {
+			g.drawImage(ImageProvider.getPallinaGialla(),GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).x ,GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).y, null);
+		}
+		if(t.getB3().getColor()==0) {
+			g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
+		} else if(t.getB3().getColor()==1) {
+			g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
+		} else if(t.getB3().getColor()==2) {
+			g.drawImage(ImageProvider.getPallinaVerde(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
+		} else {
+			g.drawImage(ImageProvider.getPallinaGialla(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
+		}
 		
-		if(t.getB2().getColor()==0) g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).x ,GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).y, null);
-		else if(t.getB2().getColor()==1) g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).x ,GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).y, null);
-		else if(t.getB2().getColor()==2) g.drawImage(ImageProvider.getPallinaVerde(),GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).x ,GameConfig.logicToGraphic(t.getB2().getCenter().x, t.getB2().getCenter().y).y, null);
-		
-		if(t.getB3().getColor()==0) g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
-		else if(t.getB3().getColor()==1) g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
-		else if(t.getB3().getColor()==2) g.drawImage(ImageProvider.getPallinaVerde(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
-		
-		
-//		
-//		r.setBounds(229,36,50,50);
-//		r.setOpaque(false);
-//		r.setContentAreaFilled(false);
-//		r.setBorderPainted(false);
-//		
-//		v.setBounds(179,36,50,50);
-//		v.setOpaque(false);
-//		v.setContentAreaFilled(false);
-//		v.setBorderPainted(false);
-		
-		b.setBounds(200,200,50,50);
-		b.setOpaque(false);
-		b.setContentAreaFilled(false);
-		b.setBorderPainted(false);
-		
-		gi.setBounds(250,200,50,50);
-		gi.setOpaque(false);
-		gi.setContentAreaFilled(false);
-		gi.setBorderPainted(false);
 	
 	}
 	

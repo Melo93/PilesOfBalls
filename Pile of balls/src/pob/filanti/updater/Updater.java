@@ -16,16 +16,23 @@ public class Updater extends Thread {
 	@Override
 	public void run() {
 		super.run();
-		while((GameManager.getInstance().getCurrent().getB3().getCenter().y<GameConfig.FLOOR)) {
+		while(!stopTrisBalls()) {
 			try {
 				GameManager.getInstance().update();
 				pp.repaint();
-				sleep(700);
+				sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
+	}
+	
+	public boolean stopTrisBalls() {
+		if(GameManager.getInstance().getCurrent().getB3().getCenter().y>=GameConfig.FLOOR | GameManager.getInstance().getCurrent().getB2().getCenter().y>=GameConfig.FLOOR | GameManager.getInstance().getCurrent().getB1().getCenter().y>=GameConfig.FLOOR) {
+			return true;
+		}
+		return false;
 	}
 }
