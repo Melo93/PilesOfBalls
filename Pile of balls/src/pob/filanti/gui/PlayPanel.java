@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import pob.filanti.controller.KeyboardManager;
 import pob.filanti.core.GameConfig;
 import pob.filanti.core.GameManager;
 import pob.filanti.core.TrisBalls;
@@ -32,6 +33,7 @@ public class PlayPanel extends JPanel{
 	JButton gi;
 	Updater update;
 	TrisBalls t;
+	KeyboardManager keyManager;
 	
 	public PlayPanel(GameFrame gameFrame) {
 		this.setVisible(true);
@@ -74,6 +76,9 @@ public class PlayPanel extends JPanel{
 		this.add(gi);
 		this.add(b);
 		this.setVisible(true);
+		
+		keyManager=new KeyboardManager(this);
+		addKeyListener(keyManager);
 		
 		update=new Updater(this);
 		update.start();
@@ -132,7 +137,7 @@ public class PlayPanel extends JPanel{
 		else if(t.getB3().getColor()==1) g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
 		else if(t.getB3().getColor()==2) g.drawImage(ImageProvider.getPallinaVerde(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
 		
-		System.out.println(t.toString());
+		
 //		
 //		r.setBounds(229,36,50,50);
 //		r.setOpaque(false);
