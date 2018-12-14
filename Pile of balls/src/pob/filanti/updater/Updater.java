@@ -29,6 +29,13 @@ public class Updater extends Thread {
 		}
 	}
 	
+	public boolean stopMoveLeftTrisBalls() {
+		if(GameManager.getInstance().getCurrent().getB3().getCenter().y>=GameConfig.LEFT | GameManager.getInstance().getCurrent().getB2().getCenter().y>=GameConfig.LEFT | GameManager.getInstance().getCurrent().getB1().getCenter().y>=GameConfig.LEFT) {
+			return false;
+		}
+		return true;
+	}
+	
 	public boolean stopTrisBalls() {
 		if(GameManager.getInstance().getCurrent().getB3().getCenter().y>=GameConfig.FLOOR | GameManager.getInstance().getCurrent().getB2().getCenter().y>=GameConfig.FLOOR | GameManager.getInstance().getCurrent().getB1().getCenter().y>=GameConfig.FLOOR) {
 			return true;

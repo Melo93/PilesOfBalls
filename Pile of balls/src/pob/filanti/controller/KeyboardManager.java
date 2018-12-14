@@ -5,23 +5,31 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import pob.filanti.core.GameManager;
+import pob.filanti.core.TrisBalls;
 import pob.filanti.gui.PlayPanel;
+import pob.filanti.updater.Updater;
 
 public class KeyboardManager implements KeyListener{
 
 	private PlayPanel pp;
-	
+	private Updater updater;
+	private TrisBalls t;
 	public KeyboardManager(PlayPanel p) {
-		this.pp=pp;
+		this.pp=p;
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
+		e.toString();
 		switch(e.getKeyCode()) {
+		
 		case KeyEvent.VK_LEFT:
+			if(updater.stopMoveLeftTrisBalls()) {
 			GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x-1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
 			GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x-1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
 			GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x-1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
 			break;
+			}
+		break;
 			
 		case KeyEvent.VK_RIGHT:
 			GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x+1,GameManager.getInstance().getCurrent().getB1().getCenter().y));

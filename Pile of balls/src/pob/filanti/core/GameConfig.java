@@ -10,10 +10,8 @@ public class GameConfig {
 	public static final int GRAPHIC_GAME_HEIGHT=768;
 	
 	public static final int FLOOR=31;
-	
-	public static int yLogicToGraphics(int x) {
-		return GRAPHIC_GAME_HEIGHT*x/LOGIC_GAME_HEIGHT;
-	}
+	public static final int LEFT = 31; 
+	public static final int RIGHT = 31; 
 	
 	public static Point graphicsToLogic(int x, int y){
 		
@@ -30,6 +28,10 @@ public class GameConfig {
 		int yGraphics=GRAPHIC_GAME_HEIGHT*y/LOGIC_GAME_HEIGHT;
 		
 		return new Point(xGraphics, yGraphics);
+	}
+	
+	public static int yLogicToGraphics(int x) {
+		return GRAPHIC_GAME_HEIGHT*x/LOGIC_GAME_HEIGHT;
 	}
 	
 }

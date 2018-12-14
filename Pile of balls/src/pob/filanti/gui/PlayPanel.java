@@ -2,6 +2,10 @@ package pob.filanti.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,11 +32,14 @@ public class PlayPanel extends JPanel{
 	Updater update;
 	TrisBalls t;
 	KeyboardManager keyManager;
+	KeyEvent key;
 	
 	public PlayPanel(GameFrame gameFrame) {
 		this.setVisible(true);
 		this.setPreferredSize(new Dimension(HEIGHT, WIDTH));
-		
+		keyManager=new KeyboardManager(this);
+		addKeyListener(keyManager);
+				
 		backButton = new JButton(new ImageIcon(ImageProvider.getBack2()));
 		backButton.setRolloverIcon(new ImageIcon(ImageProvider.getBack1()));
 		backButton.addActionListener(e -> gameFrame.startMenuPanel());
@@ -51,9 +58,10 @@ public class PlayPanel extends JPanel{
 		
 		speedButton = new JButton(new ImageIcon(ImageProvider.getSpeed2())); 
 		speedButton.setRolloverIcon(new ImageIcon(ImageProvider.getSpeed()));
-	
+		
 		t=GameManager.getInstance().getCurrent();
 		
+		roundRightButton.addKeyListener(keyManager);
 		
 		this.add(backButton);
 		this.add(leftButton);
@@ -61,25 +69,35 @@ public class PlayPanel extends JPanel{
 		this.add(roundRightButton);
 		this.add(roundLeftButton);
 		this.add(speedButton);
-		this.setVisible(true);
-		
-		keyManager=new KeyboardManager(this);
-		addKeyListener(keyManager);
+		this.setVisible(true);	
 		
 		update=new Updater(this);
 		update.start();
-		
-		
-		// CREO UN NUOVO TREAD, USANDO L'INTERFACCIA RUNNABLE, CHE VIENE
-				// RIDEFINITO ATTRAVERSO UNA INNER CLASS PER EFFETTUARE IL REPAINT.
+		rightButton.addActionListener(new ActionListener() {
 			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x+1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
+				GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x+1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
+				GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x+1,GameManager.getInstance().getCurrent().getB3().getCenter().y));			
+			}
+		});
+		
+		leftButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x-1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
+				GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x-1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
+				GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x-1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
+			}
+		});
 	}
 	 
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(ImageProvider.getBackgroundPlayPanel(), 0, 0, null);
-		// BOTTONE BACK
+
 		backButton.setBounds(35,615,100,100);
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
