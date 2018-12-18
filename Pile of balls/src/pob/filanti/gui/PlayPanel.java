@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import pob.filanti.controller.KeyboardManager;
+import pob.filanti.controller.MouseManager;
 import pob.filanti.core.GameConfig;
 import pob.filanti.core.GameManager;
 import pob.filanti.core.TrisBalls;
@@ -32,6 +33,7 @@ public class PlayPanel extends JPanel{
 	Updater update;
 	TrisBalls t;
 	KeyboardManager keyManager;
+	MouseManager mouseManager;
 	KeyEvent key;
 	
 	public PlayPanel(GameFrame gameFrame) {
@@ -46,18 +48,23 @@ public class PlayPanel extends JPanel{
 		
 		leftButton = new JButton(new ImageIcon(ImageProvider.getLeft2())); 
 		leftButton.setRolloverIcon(new ImageIcon(ImageProvider.getLeft()));
+		leftButton.addActionListener(e -> mouseManager.mouseClickedLeft());
 		
 		rightButton = new JButton(new ImageIcon(ImageProvider.getRight2())); 
 		rightButton.setRolloverIcon(new ImageIcon(ImageProvider.getRight()));
+		rightButton.addActionListener(e -> mouseManager.mouseClickedRight());
 		
 		roundRightButton = new JButton(new ImageIcon(ImageProvider.getRoundright2())); 
 		roundRightButton.setRolloverIcon(new ImageIcon(ImageProvider.getRoundright()));
+		roundRightButton.addActionListener(e -> mouseManager.mouseClickedRoundRightButton());
 		
 		roundLeftButton = new JButton(new ImageIcon(ImageProvider.getRoundleft2())); 
 		roundLeftButton.setRolloverIcon(new ImageIcon(ImageProvider.getRoundleft()));
+		roundLeftButton.addActionListener(e -> mouseManager.mouseClickedRoundLeftButton());
 		
 		speedButton = new JButton(new ImageIcon(ImageProvider.getSpeed2())); 
 		speedButton.setRolloverIcon(new ImageIcon(ImageProvider.getSpeed()));
+		speedButton.addActionListener(e -> mouseManager.mouseClickedSpeedButton());
 		
 		t=GameManager.getInstance().getCurrent();
 		
@@ -93,6 +100,26 @@ public class PlayPanel extends JPanel{
 		});
 	}
 	 
+	public JButton getLeftButton() {
+		return leftButton;
+	}
+	
+	public JButton getRightButton() {
+		return rightButton;
+	}
+
+	public JButton getRoundLeftButton() {
+		return roundLeftButton;
+	}
+
+	public JButton getRoundRightButton() {
+		return roundRightButton;
+	}
+
+	public JButton getSpeedButton() {
+		return speedButton;
+	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -160,6 +187,31 @@ public class PlayPanel extends JPanel{
 	
 	}
 	
+	public void setLeftButton(int button1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setLeftButton(JButton leftButton) {
+		this.leftButton = leftButton;
+	}
+
+	public void setRightButton(JButton rightButton) {
+		this.rightButton = rightButton;
+	}
+
+	public void setRoundLeftButton(JButton roundLeftButton) {
+		this.roundLeftButton = roundLeftButton;
+	}
+
+	public void setRoundRightButton(JButton roundRightButton) {
+		this.roundRightButton = roundRightButton;
+	}
+
+	public void setSpeedButton(JButton speedButton) {
+		this.speedButton = speedButton;
+	}
+
 	public void start() {
 		//matrix.start();
 	}
