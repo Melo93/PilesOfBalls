@@ -11,17 +11,18 @@ public class GameManager {
 	}
 	
 	private TrisBalls current;
+	private TrisBalls nextTris;
 	
 	private GameManager() {
 		current=new TrisBalls();
 	}
 	
-	public void update() {
-		current.update();
-	}
-
 	public TrisBalls getCurrent() {
 		return current;
+	}
+
+	public void update() {
+		current.update();
 	}
 
 	

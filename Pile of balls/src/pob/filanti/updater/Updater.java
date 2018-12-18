@@ -20,20 +20,13 @@ public class Updater extends Thread {
 			try {
 				GameManager.getInstance().update();
 				pp.repaint();
-				sleep(800);
+				sleep(200);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
-	}
-	
-	public boolean stopMoveLeftTrisBalls() {
-		if(GameManager.getInstance().getCurrent().getB3().getCenter().y>=GameConfig.LEFT | GameManager.getInstance().getCurrent().getB2().getCenter().y>=GameConfig.LEFT | GameManager.getInstance().getCurrent().getB1().getCenter().y>=GameConfig.LEFT) {
-			return false;
-		}
-		return true;
 	}
 	
 	public boolean stopTrisBalls() {
