@@ -7,42 +7,28 @@ public class TrisBalls {
 	private Ball b1;	//pallina in alto
 	private Ball b2;	//pallina in basso sinistra
 	private Ball b3;	//pallina in basso destra
-	private int position;
+	private int positionLeft;
+	private int positionRight;
+	private int speed;
 	
 	public TrisBalls() {
 		b1=new Ball(new Random().nextInt(3),20,2);
 		b2=new Ball(new Random().nextInt(3),19,4);
 		b3=new Ball(new Random().nextInt(3),21,4);
-		position=1;
+		positionLeft=1;
+		positionRight=7;
+		speed=1;
 	}
 
 	public void fall() {
-		b1.setCenter(new Point(b1.getCenter().x, b1.getCenter().y+1));
-		b2.setCenter(new Point(b2.getCenter().x, b2.getCenter().y+1));
-		b3.setCenter(new Point(b3.getCenter().x, b3.getCenter().y+1));
-	}
-
-	public Ball getB1() {
-		return b1; 
-	}
-
-
-	public Ball getB2() {
-		return b2;
-	}
-	
-	
-
-	public Ball getB3() {
-		return b3;
-	}
-
-	public int getPosition() {
-		return position;
+		b1.setCenter(new Point(b1.getCenter().x, b1.getCenter().y+speed));
+		b2.setCenter(new Point(b2.getCenter().x, b2.getCenter().y+speed));
+		b3.setCenter(new Point(b3.getCenter().x, b3.getCenter().y+speed));
+		
 	}
 
 	public void rotateLeft() {
-		switch(position) {
+		switch(positionLeft) {
 		case 1:
 			break;
 		case 2:
@@ -70,7 +56,7 @@ public class TrisBalls {
 			b2.setCenter(new Point(b2.getCenter().x-1,b2.getCenter().y));	//pallina in alto a sinistra
 			b3.setCenter(new Point(b3.getCenter().x+1,b3.getCenter().y));	//pallina in basso centrale
 			break;
-		case 7: 
+		case 7:
 			b1.setCenter(new Point(b1.getCenter().x-1,b1.getCenter().y));	//pallina in alto centrale
 			b2.setCenter(new Point(b2.getCenter().x,b2.getCenter().y+2));	//pallina in basso a sinistra
 			b3.setCenter(new Point(b3.getCenter().x+1,b3.getCenter().y));   //pallina in basso a destra
@@ -80,7 +66,7 @@ public class TrisBalls {
 	}
 	
 	public void rotateRight() {
-		switch(position) {
+		switch(positionRight) {
 		case 1:
 			break;
 		case 2:
@@ -116,18 +102,131 @@ public class TrisBalls {
 		}
 	}
 	
-	public void setPosition(int position) {
-		this.position = position;
+	public void setPositionLeft(int positionLeft) {
+		this.positionLeft = positionLeft;
 	}
 	
+	public void setPositionRight(int positionRight) {
+		this.positionRight = positionRight;
+	}
+	
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
 	@Override
 	public String toString() {
 		return "TrisBalls [b1 x=" + b1.getCenter().x + " b1 y=" + b1.getCenter().y +", b2 x=" + b2.getCenter().x +", b2 y="+ b2.getCenter().y +
-				", b3 x=" + b3.getCenter().x + ", b3 y="+b3.getCenter().y +"]";
+				", b3 x=" + b3.getCenter().x + ", b3 y="+b3.getCenter().y + " position left: "+ positionLeft+" position right: "+ positionRight+"]";
 	}
 	
 	public void update() {
 		fall();
+		checkCollisionFloor();
+		checkCollisionBoard();
+		
 	}
 	
+	private void checkCollisionBoard() {
+		//collisione destra
+		if(b3.getCenter().x>=GameConfig.RIGHT || b2.getCenter().x>=GameConfig.RIGHT || b1.getCenter().x>=GameConfig.RIGHT) {
+			if(positionLeft==1||positionRight==7 || positionLeft==7 ||positionRight==1) {
+				b1.setCenter(new Point(GameConfig.RIGHT-1, b1.getCenter().y));
+				b2.setCenter(new Point(GameConfig.RIGHT-2, b2.getCenter().y));
+				b3.setCenter(new Point(GameConfig.RIGHT, b3.getCenter().y));
+			}
+			else if(positionLeft==2||positionRight==6) {
+				b1.setCenter(new Point(GameConfig.RIGHT-2, b1.getCenter().y));
+				b2.setCenter(new Point(GameConfig.RIGHT-1, b2.getCenter().y));
+				b3.setCenter(new Point(GameConfig.RIGHT, b3.getCenter().y));
+			}
+			else if(positionLeft==3||positionRight==5) {
+				b1.setCenter(new Point(GameConfig.RIGHT-2, b1.getCenter().y));
+				b2.setCenter(new Point(GameConfig.RIGHT, b2.getCenter().y));
+				b3.setCenter(new Point(GameConfig.RIGHT-1, b3.getCenter().y));
+			}
+			else if(positionLeft==4 ||positionRight==4) {
+				b1.setCenter(new Point(GameConfig.RIGHT-1, b1.getCenter().y));
+				b2.setCenter(new Point(GameConfig.RIGHT, b2.getCenter().y));
+				b3.setCenter(new Point(GameConfig.RIGHT-2, b3.getCenter().y));
+			}
+			else if(positionLeft==5 ||positionRight==3) {
+				b1.setCenter(new Point(GameConfig.RIGHT, b1.getCenter().y));
+				b2.setCenter(new Point(GameConfig.RIGHT-1, b2.getCenter().y));
+				b3.setCenter(new Point(GameConfig.RIGHT-2, b3.getCenter().y));
+			}
+			else if(positionLeft==6 ||positionRight==2) {
+				b1.setCenter(new Point(GameConfig.RIGHT, b1.getCenter().y));
+				b2.setCenter(new Point(GameConfig.RIGHT-2, b2.getCenter().y));
+				b3.setCenter(new Point(GameConfig.RIGHT-1, b3.getCenter().y));
+			}
+		}
+		//collisione sinistra
+		else if()
+	}
+
+	private void checkCollisionFloor() {
+		if(b3.getCenter().y>=GameConfig.FLOOR || b2.getCenter().y>=GameConfig.FLOOR || b1.getCenter().y>=GameConfig.FLOOR) {
+			speed=0;
+			if(positionLeft==1||positionRight==7 || positionLeft==7 ||positionRight==1) {
+				b1.setCenter(new Point(b1.getCenter().x, GameConfig.FLOOR-2));
+				b2.setCenter(new Point(b2.getCenter().x, GameConfig.FLOOR));
+				b3.setCenter(new Point(b3.getCenter().x, GameConfig.FLOOR));
+			}
+			else if(positionLeft==2||positionRight==6) {
+				b1.setCenter(new Point(b1.getCenter().x, GameConfig.FLOOR-2));
+				b2.setCenter(new Point(b2.getCenter().x, GameConfig.FLOOR));
+				b3.setCenter(new Point(b3.getCenter().x, GameConfig.FLOOR-2));
+			}
+			
+			else if(positionLeft==3||positionRight==5) {
+				b1.setCenter(new Point(b1.getCenter().x, GameConfig.FLOOR));
+				b2.setCenter(new Point(b2.getCenter().x, GameConfig.FLOOR));
+				b3.setCenter(new Point(b3.getCenter().x, GameConfig.FLOOR-2));
+			}
+			else if(positionLeft==4 ||positionRight==4) {
+				b1.setCenter(new Point(b1.getCenter().x, GameConfig.FLOOR));
+				b2.setCenter(new Point(b2.getCenter().x, GameConfig.FLOOR-2));
+				b3.setCenter(new Point(b3.getCenter().x, GameConfig.FLOOR-2));
+			}
+			else if(positionLeft==5 ||positionRight==3 ) {
+				b1.setCenter(new Point(b1.getCenter().x, GameConfig.FLOOR));
+				b2.setCenter(new Point(b2.getCenter().x, GameConfig.FLOOR-2));
+				b3.setCenter(new Point(b3.getCenter().x, GameConfig.FLOOR));
+			}
+			else if(positionLeft==6 ||positionRight==2 ) {
+				b1.setCenter(new Point(b1.getCenter().x, GameConfig.FLOOR-2));
+				b2.setCenter(new Point(b2.getCenter().x, GameConfig.FLOOR-2));
+				b3.setCenter(new Point(b3.getCenter().x, GameConfig.FLOOR));
+			}
+		}
+		
+	}
+
+	public Ball getB1() {
+		return b1; 
+	}
+	
+	
+	public Ball getB2() {
+		return b2;
+	}
+	
+	
+	
+	public Ball getB3() {
+		return b3;
+	}
+	
+	public int getPositionLeft() {
+		return positionLeft;
+	}
+	
+	public int getPositionRight() {
+		return positionRight;
+	}
 }

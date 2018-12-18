@@ -10,8 +10,8 @@ public class GameConfig {
 	public static final int GRAPHIC_GAME_HEIGHT=768;
 	
 	public static final int FLOOR=31;
-	public static final int LEFT = 31; 
-	public static final int RIGHT = 31; 
+	public static final int LEFT=9; 
+	public static final int RIGHT=33; 
 	
 	public static Point graphicsToLogic(int x, int y){
 		
