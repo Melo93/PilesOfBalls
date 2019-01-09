@@ -23,14 +23,23 @@ public class TrisBalls {
 			canMove=true;
 		}
 		else if(status==0) {
-			b1=new Ball(new Random().nextInt(3),2,5);
-			b2=new Ball(new Random().nextInt(3),1,7);
-			b3=new Ball(new Random().nextInt(3),3,7);
+			b1=new Ball(new Random().nextInt(3),2,6);
+			b2=new Ball(new Random().nextInt(3),1,8);
+			b3=new Ball(new Random().nextInt(3),3,8);
 			positionLeft=1;
 			positionRight=7;
 			speed=0;
 			canMove=false;
 		}
+	}
+	public void changeStatus() {
+		b1.setCenter(new Point(20,2));
+		b2.setCenter(new Point(19,4));
+		b3.setCenter(new Point(21,4));
+		positionLeft=1;
+		positionRight=7;
+		speed=1;
+		canMove=true;
 	}
 
 	private void checkCollisionBoard() {

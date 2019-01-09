@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import pob.filanti.controller.KeyboardManager;
 import pob.filanti.controller.MouseManager;
+import pob.filanti.core.Ball;
 import pob.filanti.core.GameConfig;
 import pob.filanti.core.GameManager;
 import pob.filanti.core.TrisBalls;
@@ -70,9 +71,7 @@ public class PlayPanel extends JPanel{
 		if(GameManager.getInstance()!=null) {
 			GameManager.getInstance().clear();
 		}
-		t=GameManager.getInstance().getCurrent();
-		t1=GameManager.getInstance().getNextTris();
-
+	
 		this.add(backButton);
 		this.add(leftButton);
 		this.add(rightButton);
@@ -108,6 +107,9 @@ public class PlayPanel extends JPanel{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		t=GameManager.getInstance().getCurrent();
+		t1=GameManager.getInstance().getNextTris();
+
 		g.drawImage(ImageProvider.getBackgroundPlayPanel(), 0, 0, null);
 
 		backButton.setBounds(35,615,100,100);
@@ -142,9 +144,24 @@ public class PlayPanel extends JPanel{
 
 		paintTrisBall(g, t);
 		paintTrisBall(g, t1);
+		paintBalls(g);
 		
 	}
 	
+	private void paintBalls(Graphics g) {
+		for(Ball t: GameManager.getInstance().getBalls()) {
+			if(t.getColor()==0) {
+				g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getCenter().x, t.getCenter().y).x ,GameConfig.logicToGraphic(t.getCenter().x, t.getCenter().y).y , null);
+			} else if(t.getColor()==1) {
+				g.drawImage(ImageProvider.getPallinaBlu(),GameConfig.logicToGraphic(t.getCenter().x, t.getCenter().y).x ,GameConfig.logicToGraphic(t.getCenter().x, t.getCenter().y).y, null);
+			} else if(t.getColor()==2) {
+				g.drawImage(ImageProvider.getPallinaVerde(), GameConfig.logicToGraphic(t.getCenter().x, t.getCenter().y).x ,GameConfig.logicToGraphic(t.getCenter().x, t.getCenter().y).y, null);
+			} else {
+				g.drawImage(ImageProvider.getPallinaGialla(), GameConfig.logicToGraphic(t.getCenter().x, t.getCenter().y).x ,GameConfig.logicToGraphic(t.getCenter().x, t.getCenter().y).y, null);
+			}
+		}
+		
+	}
 	private void paintTrisBall(Graphics g, TrisBalls t) {
 		
 		if(t.getB1().getColor()==0) {

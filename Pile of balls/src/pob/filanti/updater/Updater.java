@@ -16,7 +16,7 @@ public class Updater extends Thread {
 	@Override
 	public void run() {
 		super.run();
-		while(!stopTrisBalls()) {
+		while(true) {
 			try {
 				GameManager.getInstance().update();
 				pp.repaint();
@@ -29,10 +29,5 @@ public class Updater extends Thread {
 		}
 	}
 	
-	public boolean stopTrisBalls() {
-		if(GameManager.getInstance().getCurrent().getB3().getCenter().y>=GameConfig.FLOOR | GameManager.getInstance().getCurrent().getB2().getCenter().y>=GameConfig.FLOOR | GameManager.getInstance().getCurrent().getB1().getCenter().y>=GameConfig.FLOOR) {
-			return true;
-		}
-		return false;
-	}
+
 }
