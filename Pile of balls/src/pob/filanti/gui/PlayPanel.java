@@ -2,9 +2,6 @@ package pob.filanti.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
@@ -32,6 +29,7 @@ public class PlayPanel extends JPanel{
 	GameManager matrix;
 	Updater update;
 	TrisBalls t;
+	TrisBalls t1;
 	KeyboardManager keyManager;
 	MouseManager mouseManager;
 	KeyEvent key;
@@ -73,6 +71,7 @@ public class PlayPanel extends JPanel{
 			GameManager.getInstance().clear();
 		}
 		t=GameManager.getInstance().getCurrent();
+		t1=GameManager.getInstance().getNextTris();
 
 		this.add(backButton);
 		this.add(leftButton);
@@ -141,7 +140,13 @@ public class PlayPanel extends JPanel{
 		speedButton.setContentAreaFilled(false);
 		speedButton.setBorderPainted(false);
 
-
+		paintTrisBall(g, t);
+		paintTrisBall(g, t1);
+		
+	}
+	
+	private void paintTrisBall(Graphics g, TrisBalls t) {
+		
 		if(t.getB1().getColor()==0) {
 			g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y , null);
 		} else if(t.getB1().getColor()==1) {
@@ -169,8 +174,6 @@ public class PlayPanel extends JPanel{
 		} else {
 			g.drawImage(ImageProvider.getPallinaGialla(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
 		}
-
-
 	}
 
 	public void setLeftButton(int button1) {

@@ -10,14 +10,27 @@ public class TrisBalls {
 	private int positionLeft;
 	private int positionRight;
 	private int speed;
-	
-	public TrisBalls() {
-		b1=new Ball(new Random().nextInt(3),20,2);
-		b2=new Ball(new Random().nextInt(3),19,4);
-		b3=new Ball(new Random().nextInt(3),21,4);
-		positionLeft=1;
-		positionRight=7;
-		speed=1;
+	private boolean canMove;
+
+	public TrisBalls(int status) {
+		if(status==1) {
+			b1=new Ball(new Random().nextInt(3),20,2);
+			b2=new Ball(new Random().nextInt(3),19,4);
+			b3=new Ball(new Random().nextInt(3),21,4);
+			positionLeft=1;
+			positionRight=7;
+			speed=1;
+			canMove=true;
+		}
+		else if(status==0) {
+			b1=new Ball(new Random().nextInt(3),2,5);
+			b2=new Ball(new Random().nextInt(3),1,7);
+			b3=new Ball(new Random().nextInt(3),3,7);
+			positionLeft=1;
+			positionRight=7;
+			speed=0;
+			canMove=false;
+		}
 	}
 
 	private void checkCollisionBoard() {
@@ -102,7 +115,7 @@ public class TrisBalls {
 				b2.setCenter(new Point(b2.getCenter().x, GameConfig.FLOOR));
 				b3.setCenter(new Point(b3.getCenter().x, GameConfig.FLOOR-2));
 			}
-			
+
 			else if(positionLeft==3||positionRight==5) {
 				b1.setCenter(new Point(b1.getCenter().x, GameConfig.FLOOR));
 				b2.setCenter(new Point(b2.getCenter().x, GameConfig.FLOOR));
@@ -123,25 +136,26 @@ public class TrisBalls {
 				b2.setCenter(new Point(b2.getCenter().x, GameConfig.FLOOR-2));
 				b3.setCenter(new Point(b3.getCenter().x, GameConfig.FLOOR));
 			}
+			canMove=false;
 		}
-		
+
 	}
-	
+
 	public void fall() {
 		b1.setCenter(new Point(b1.getCenter().x, b1.getCenter().y+speed));
 		b2.setCenter(new Point(b2.getCenter().x, b2.getCenter().y+speed));
 		b3.setCenter(new Point(b3.getCenter().x, b3.getCenter().y+speed));
-		
+
 	}
-	
+
 	public Ball getB1() {
 		return b1; 
 	}
-	
+
 	public Ball getB2() {
 		return b2;
 	}
-	
+
 	public Ball getB3() {
 		return b3;
 	}
@@ -153,11 +167,11 @@ public class TrisBalls {
 	public int getPositionRight() {
 		return positionRight;
 	}
-	
+
 	public int getSpeed() {
 		return speed;
 	}
-	
+
 	public void rotateLeft() {
 		switch(positionLeft) {
 		case 1:
@@ -193,7 +207,7 @@ public class TrisBalls {
 			b3.setCenter(new Point(b3.getCenter().x+1,b3.getCenter().y));   //pallina in basso a destra
 			break;
 		}
-		
+
 	}
 
 	public void rotateRight() {
@@ -236,28 +250,38 @@ public class TrisBalls {
 	public void setPositionLeft(int positionLeft) {
 		this.positionLeft = positionLeft;
 	}
-	
-	
+
+
 	public void setPositionRight(int positionRight) {
 		this.positionRight = positionRight;
 	}
-	
-	
-	
+
+
+
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	
+
+
+
+	public boolean canMove() {
+		return canMove;
+	}
+
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
+	}
+
 	@Override
 	public String toString() {
 		return "TrisBalls [b1 x=" + b1.getCenter().x + " b1 y=" + b1.getCenter().y +", b2 x=" + b2.getCenter().x +", b2 y="+ b2.getCenter().y +
 				", b3 x=" + b3.getCenter().x + ", b3 y="+b3.getCenter().y + " position left: "+ positionLeft+" position right: "+ positionRight+"]";
 	}
-	
+
 	public void update() {
 		fall();
 		checkCollisionFloor();
 		checkCollisionBoard();
-		
+
 	}
 }
