@@ -35,41 +35,45 @@ public class PlayPanel extends JPanel{
 	KeyboardManager keyManager;
 	MouseManager mouseManager;
 	KeyEvent key;
-	
+
 	public PlayPanel(GameFrame gameFrame) {
 		this.setVisible(true);
 		this.setPreferredSize(new Dimension(HEIGHT, WIDTH));
-		keyManager=new KeyboardManager(this);
-		addKeyListener(keyManager);
-				
+		mouseManager=new MouseManager(this);
+//		addMouseListener(mouseManager);
+//		addMouseMotionListener(mouseManager);
+		
 		backButton = new JButton(new ImageIcon(ImageProvider.getBack2()));
 		backButton.setRolloverIcon(new ImageIcon(ImageProvider.getBack1()));
 		backButton.addActionListener(e -> gameFrame.startMenuPanel());
-		
+
 		leftButton = new JButton(new ImageIcon(ImageProvider.getLeft2())); 
 		leftButton.setRolloverIcon(new ImageIcon(ImageProvider.getLeft()));
-		leftButton.addActionListener(e -> mouseManager.mouseClickedLeft());
-		
+		leftButton.addMouseListener(mouseManager);
+
 		rightButton = new JButton(new ImageIcon(ImageProvider.getRight2())); 
 		rightButton.setRolloverIcon(new ImageIcon(ImageProvider.getRight()));
-		rightButton.addActionListener(e -> mouseManager.mouseClickedRight());
-		
+		rightButton.addMouseListener(mouseManager);
+
 		roundRightButton = new JButton(new ImageIcon(ImageProvider.getRoundright2())); 
 		roundRightButton.setRolloverIcon(new ImageIcon(ImageProvider.getRoundright()));
-		roundRightButton.addActionListener(e -> mouseManager.mouseClickedRoundRightButton());
-		
+		roundRightButton.addMouseListener(mouseManager);
+
 		roundLeftButton = new JButton(new ImageIcon(ImageProvider.getRoundleft2())); 
 		roundLeftButton.setRolloverIcon(new ImageIcon(ImageProvider.getRoundleft()));
-		roundLeftButton.addActionListener(e -> mouseManager.mouseClickedRoundLeftButton());
-		
+		roundLeftButton.addMouseListener(mouseManager);
+
 		speedButton = new JButton(new ImageIcon(ImageProvider.getSpeed2())); 
 		speedButton.setRolloverIcon(new ImageIcon(ImageProvider.getSpeed()));
-		speedButton.addActionListener(e -> mouseManager.mouseClickedSpeedButton());
-		
+		speedButton.addMouseListener(mouseManager);
+
+		keyManager=new KeyboardManager(this);
+		addKeyListener(keyManager);
+		if(GameManager.getInstance()!=null) {
+			GameManager.getInstance().clear();
+		}
 		t=GameManager.getInstance().getCurrent();
-		
-		roundRightButton.addKeyListener(keyManager);
-		
+
 		this.add(backButton);
 		this.add(leftButton);
 		this.add(rightButton);
@@ -77,33 +81,15 @@ public class PlayPanel extends JPanel{
 		this.add(roundLeftButton);
 		this.add(speedButton);
 		this.setVisible(true);	
-		
+
 		update=new Updater(this);
 		update.start();
-		rightButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x+1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
-				GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x+1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
-				GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x+1,GameManager.getInstance().getCurrent().getB3().getCenter().y));			
-			}
-		});
-		
-		leftButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x-1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
-				GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x-1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
-				GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x-1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
-			}
-		});
+
 	}
-	 
 	public JButton getLeftButton() {
 		return leftButton;
 	}
-	
+
 	public JButton getRightButton() {
 		return rightButton;
 	}
@@ -129,33 +115,33 @@ public class PlayPanel extends JPanel{
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
 		backButton.setBorderPainted(false);
-		
+
 		leftButton.setBounds(885,50,100,100);
 		leftButton.setOpaque(false);
 		leftButton.setContentAreaFilled(false);
 		leftButton.setBorderPainted(false);
-		
+
 		rightButton.setBounds(885,175,100,100);
 		rightButton.setOpaque(false);
 		rightButton.setContentAreaFilled(false);
 		rightButton.setBorderPainted(false);
-		
+
 		roundLeftButton.setBounds(885,312,100,100);
 		roundLeftButton.setOpaque(false);
 		roundLeftButton.setContentAreaFilled(false);
 		roundLeftButton.setBorderPainted(false);
-		
+
 		roundRightButton.setBounds(885,462,100,100);
 		roundRightButton.setOpaque(false);
 		roundRightButton.setContentAreaFilled(false);
 		roundRightButton.setBorderPainted(false);
-				
+
 		speedButton.setBounds(885,625,100,100);
 		speedButton.setOpaque(false);
 		speedButton.setContentAreaFilled(false);
 		speedButton.setBorderPainted(false);
-		
-		
+
+
 		if(t.getB1().getColor()==0) {
 			g.drawImage(ImageProvider.getPallinaRossa(),GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).x ,GameConfig.logicToGraphic(t.getB1().getCenter().x, t.getB1().getCenter().y).y , null);
 		} else if(t.getB1().getColor()==1) {
@@ -183,13 +169,13 @@ public class PlayPanel extends JPanel{
 		} else {
 			g.drawImage(ImageProvider.getPallinaGialla(),GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).x ,GameConfig.logicToGraphic(t.getB3().getCenter().x, t.getB3().getCenter().y).y, null);
 		}
-		
-	
+
+
 	}
-	
+
 	public void setLeftButton(int button1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void setLeftButton(JButton leftButton) {
@@ -215,5 +201,5 @@ public class PlayPanel extends JPanel{
 	public void start() {
 		//matrix.start();
 	}
-	
+
 }

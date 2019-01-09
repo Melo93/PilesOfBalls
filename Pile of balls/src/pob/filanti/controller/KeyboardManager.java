@@ -19,6 +19,7 @@ public class KeyboardManager implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		e.toString();
+		pp.requestFocus();
 		switch(e.getKeyCode()) {
 		
 		case KeyEvent.VK_LEFT:

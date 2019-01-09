@@ -13,6 +13,11 @@ public class GameManager {
 	private TrisBalls current;
 	private TrisBalls nextTris;
 	
+	public void clear() {
+		current=null;
+		current=new TrisBalls();
+	}
+	
 	private GameManager() {
 		current=new TrisBalls();
 	}
