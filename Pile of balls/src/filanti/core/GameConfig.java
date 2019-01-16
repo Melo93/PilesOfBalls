@@ -1,4 +1,4 @@
-package pob.filanti.core;
+package filanti.core;
 
 import java.awt.Point;
 
@@ -12,6 +12,9 @@ public class GameConfig {
 	public static final int FLOOR=31;
 	public static final int LEFT=7; 
 	public static final int RIGHT=33; 
+	
+	public static final int BALL_HEIGHT=2;
+	public static final int BALL_WIDTH=2;	
 	
 	public static Point graphicsToLogic(int x, int y){
 		
