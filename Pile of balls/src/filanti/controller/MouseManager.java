@@ -1,12 +1,14 @@
-package pob.filanti.controller;
+package filanti.controller;
 
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import pob.filanti.core.GameManager;
-import pob.filanti.gui.PlayPanel;
+import filanti.core.GameManager;
+import filanti.gui.PlayPanel;
+
+
 
 public class MouseManager implements MouseListener, MouseMotionListener{
 	private PlayPanel pp;
@@ -80,44 +82,44 @@ public class MouseManager implements MouseListener, MouseMotionListener{
 
 		}
 
-		else if(e.getSource()==pp.getRoundRightButton()) {
-			if(GameManager.getInstance().getCurrent().getPositionRight()>6) {
-				GameManager.getInstance().getCurrent().setPositionRight(1);
-			}
-			GameManager.getInstance().getCurrent().setPositionRight(GameManager.getInstance().getCurrent().getPositionRight()+1);
-			GameManager.getInstance().getCurrent().setPositionLeft(7-GameManager.getInstance().getCurrent().getPositionRight()+1);
-			GameManager.getInstance().getCurrent().rotateRight();
-			System.out.println(GameManager.getInstance().getCurrent().toString());
-		}
-
-		else if(e.getSource()==pp.getRoundLeftButton()) {
-			if(GameManager.getInstance().getCurrent().getPositionLeft()>6) {
-				GameManager.getInstance().getCurrent().setPositionLeft(1);
-			}
-			GameManager.getInstance().getCurrent().setPositionLeft(GameManager.getInstance().getCurrent().getPositionLeft()+1);
-			GameManager.getInstance().getCurrent().setPositionRight(7-GameManager.getInstance().getCurrent().getPositionLeft()+1);
-			GameManager.getInstance().getCurrent().rotateLeft();
-			System.out.println(GameManager.getInstance().getCurrent().toString());
-		}
+//		else if(e.getSource()==pp.getRoundRightButton()) {
+//			if(GameManager.getInstance().getCurrent().getPositionRight()>6) {
+//				GameManager.getInstance().getCurrent().setPositionRight(1);
+//			}
+//			GameManager.getInstance().getCurrent().setPositionRight(GameManager.getInstance().getCurrent().getPositionRight()+1);
+//			GameManager.getInstance().getCurrent().setPositionLeft(7-GameManager.getInstance().getCurrent().getPositionRight()+1);
+//			GameManager.getInstance().getCurrent().rotateRight();
+//			System.out.println(GameManager.getInstance().getCurrent().toString());
+//		}
+//
+//		else if(e.getSource()==pp.getRoundLeftButton()) {
+//			if(GameManager.getInstance().getCurrent().getPositionLeft()>6) {
+//				GameManager.getInstance().getCurrent().setPositionLeft(1);
+//			}
+//			GameManager.getInstance().getCurrent().setPositionLeft(GameManager.getInstance().getCurrent().getPositionLeft()+1);
+//			GameManager.getInstance().getCurrent().setPositionRight(7-GameManager.getInstance().getCurrent().getPositionLeft()+1);
+//			GameManager.getInstance().getCurrent().rotateLeft();
+//			System.out.println(GameManager.getInstance().getCurrent().toString());
+//		}
 
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		pp.requestFocus();
-		if(e.getSource()==pp.getSpeedButton()) {
-			GameManager.getInstance().getCurrent().setSpeed(3);
-		}
+//		pp.requestFocus();
+//		if(e.getSource()==pp.getSpeedButton()) {
+//			GameManager.getInstance().getCurrent().setSpeed(3);
+//		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		pp.requestFocus();
-		if(e.getSource()==pp.getSpeedButton()) {
-			GameManager.getInstance().getCurrent().setSpeed(1);
-		}
-
+//		pp.requestFocus();
+//		if(e.getSource()==pp.getSpeedButton()) {
+//			GameManager.getInstance().getCurrent().setSpeed(1);
+//		}
+//
 	}
 
 	@Override

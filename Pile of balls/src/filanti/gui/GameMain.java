@@ -1,4 +1,4 @@
-package pob.filanti.gui;
+package filanti.gui;
 
 public class GameMain {
 	public static void main(String[] args) {

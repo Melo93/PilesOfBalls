@@ -1,9 +1,14 @@
 package filanti.updater;
 
 import filanti.core.GameManager;
+import filanti.gui.PlayPanel;
 
 public class Updater extends Thread {
+	PlayPanel pp;
 	
+	public Updater(PlayPanel pp) {
+		this.pp=pp;
+	}
 	
 	@Override
 	public void run() {
@@ -12,6 +17,7 @@ public class Updater extends Thread {
 			try {
 				GameManager.getInstance().print();
 				GameManager.getInstance().update();
+				pp.repaint();
 				sleep(300);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

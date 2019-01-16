@@ -1,5 +1,6 @@
 package filanti.core;
 
+
 import java.awt.Point;
 
 public class GameConfig {

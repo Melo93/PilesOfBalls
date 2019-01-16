@@ -1,12 +1,13 @@
-package pob.filanti.controller;
+package filanti.controller;
 
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import pob.filanti.core.GameManager;
-import pob.filanti.gui.PlayPanel;
-import pob.filanti.updater.Updater;
+import filanti.core.GameManager;
+import filanti.gui.PlayPanel;
+import filanti.updater.Updater;
+
 
 public class KeyboardManager implements KeyListener{
 
@@ -34,42 +35,42 @@ public class KeyboardManager implements KeyListener{
 			GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x+1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
 			break;
 		
-		case KeyEvent.VK_UP:
-			if(GameManager.getInstance().getCurrent().getPositionLeft()>6) {
-				GameManager.getInstance().getCurrent().setPositionLeft(1);
-			}
-			GameManager.getInstance().getCurrent().setPositionLeft(GameManager.getInstance().getCurrent().getPositionLeft()+1);
-			GameManager.getInstance().getCurrent().setPositionRight(7-GameManager.getInstance().getCurrent().getPositionLeft()+1);
-			GameManager.getInstance().getCurrent().rotateLeft();
-			System.out.println(GameManager.getInstance().getCurrent().toString());
-			
-			break;
-			
-		case KeyEvent.VK_DOWN:
-			if(GameManager.getInstance().getCurrent().getPositionRight()>6) {
-				GameManager.getInstance().getCurrent().setPositionRight(1);
-			}
-			GameManager.getInstance().getCurrent().setPositionRight(GameManager.getInstance().getCurrent().getPositionRight()+1);
-			GameManager.getInstance().getCurrent().setPositionLeft(7-GameManager.getInstance().getCurrent().getPositionRight()+1);
-			GameManager.getInstance().getCurrent().rotateRight();
-			System.out.println(GameManager.getInstance().getCurrent().toString());
-			break;
-			
-		case KeyEvent.VK_SPACE:
-			GameManager.getInstance().getCurrent().setSpeed(3);
-			break;
-
+//		case KeyEvent.VK_UP:
+//			if(GameManager.getInstance().getCurrent().getPositionLeft()>6) {
+//				GameManager.getInstance().getCurrent().setPositionLeft(1);
+//			}
+//			GameManager.getInstance().getCurrent().setPositionLeft(GameManager.getInstance().getCurrent().getPositionLeft()+1);
+//			GameManager.getInstance().getCurrent().setPositionRight(7-GameManager.getInstance().getCurrent().getPositionLeft()+1);
+//			GameManager.getInstance().getCurrent().rotateLeft();
+//			System.out.println(GameManager.getInstance().getCurrent().toString());
+//			
+//			break;
+//			
+//		case KeyEvent.VK_DOWN:
+//			if(GameManager.getInstance().getCurrent().getPositionRight()>6) {
+//				GameManager.getInstance().getCurrent().setPositionRight(1);
+//			}
+//			GameManager.getInstance().getCurrent().setPositionRight(GameManager.getInstance().getCurrent().getPositionRight()+1);
+//			GameManager.getInstance().getCurrent().setPositionLeft(7-GameManager.getInstance().getCurrent().getPositionRight()+1);
+//			GameManager.getInstance().getCurrent().rotateRight();
+//			System.out.println(GameManager.getInstance().getCurrent().toString());
+//			break;
+//			
+//		case KeyEvent.VK_SPACE:
+//			GameManager.getInstance().getCurrent().setSpeed(3);
+//			break;
+//
 		}
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		switch(e.getKeyCode()) {
-		case KeyEvent.VK_SPACE:
-			GameManager.getInstance().getCurrent().setSpeed(1);
-			break;
-		}
+//		switch(e.getKeyCode()) {
+//		case KeyEvent.VK_SPACE:
+//			GameManager.getInstance().getCurrent().setSpeed(1);
+//			break;
+//		}
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package filanti.core;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class TrisBalls {
@@ -11,21 +12,18 @@ public class TrisBalls {
 	private int status;
 
 
-	public TrisBalls(Board b, int status) {
+	public TrisBalls(int status) {
 		this.status=status;
-		setPositionTrisBall(b);
+		setPositionTrisBall();
 	}
 	
-	public void setPositionTrisBall(Board b)
+	public void setPositionTrisBall()
 	{
 		if(status==1) {
-			b1=new Ball(new Random().nextInt(3)+1,0,30);
-			b2=new Ball(new Random().nextInt(3)+1,2,29);
-			b3=new Ball(new Random().nextInt(3)+1,2,31);
-
-			b.fillBoard(0, 30, b1.getColor());
-			b.fillBoard(2, 29, b2.getColor());
-			b.fillBoard(2, 31, b3.getColor());
+			b1=new Ball(new Random().nextInt(3)+1,23,0);
+			b2=new Ball(new Random().nextInt(3)+1,22,2);
+			b3=new Ball(new Random().nextInt(3)+1,24,2);
+			
 			stop=false;
 
 		}
@@ -37,27 +35,35 @@ public class TrisBalls {
 
 		}
 	}
-
-	public void fall(Board b) {
-		if(!stop) {
-			if(b1.x+b1.getSpeed()<(b.getROW()*2)-1&&b2.x+b2.getSpeed()<(b.getROW()*2)-1&&b3.x+b3.getSpeed()<(b.getROW()*2)-1) {
-				b.clearPosition(b1.x, b1.y);
-				b.clearPosition(b2.x, b2.y);
-				b.clearPosition(b3.x, b3.y);
-				b1.translate(b1.getSpeed(), 0);
-				b2.translate(b2.getSpeed(), 0);
-				b3.translate(b3.getSpeed(), 0);
-				b1.setCenter(b1.getCenter().x+b1.getSpeed(), b1.getCenter().y);
-				b2.setCenter(b2.getCenter().x+b2.getSpeed(), b2.getCenter().y);
-				b3.setCenter(b3.getCenter().x+b3.getSpeed(), b3.getCenter().y);
-				b.fillBoard(b1.x, b1.y, b1.getColor());
-				b.fillBoard(b2.x, b2.y, b2.getColor());
-				b.fillBoard(b3.x, b3.y, b3.getColor());
-			}
-			else stop=true;
-		}
-
+	
+	public void update( ArrayList<Ball> balls) {
+		
+		b1.update(balls);
+		b2.update(balls);
+		b3.update(balls);
+			
 	}
+
+//	public void fallTrisball(Board b) {
+//		if(!stop) {
+//			if(b1.x+b1.getSpeed()<(b.getROW()*2)-1&&b2.x+b2.getSpeed()<(b.getROW()*2)-1&&b3.x+b3.getSpeed()<(b.getROW()*2)-1) {
+//				b.clearPosition(b1.x, b1.y);
+//				b.clearPosition(b2.x, b2.y);
+//				b.clearPosition(b3.x, b3.y);
+//				b1.translate(b1.getSpeed(), 0);
+//				b2.translate(b2.getSpeed(), 0);
+//				b3.translate(b3.getSpeed(), 0);
+//				b1.setCenter(b1.getCenter().x+b1.getSpeed(), b1.getCenter().y);
+//				b2.setCenter(b2.getCenter().x+b2.getSpeed(), b2.getCenter().y);
+//				b3.setCenter(b3.getCenter().x+b3.getSpeed(), b3.getCenter().y);
+//				b.fillBoard(b1.x, b1.y, b1.getColor());
+//				b.fillBoard(b2.x, b2.y, b2.getColor());
+//				b.fillBoard(b3.x, b3.y, b3.getColor());
+//			}
+//			else stop=true;
+//		}
+//
+//	}
 
 	public boolean isStop() {
 		return stop;
@@ -99,6 +105,6 @@ public class TrisBalls {
 		this.b3 = b3;
 	}
 
-
+	
 
 }

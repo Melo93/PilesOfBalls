@@ -1,4 +1,4 @@
-package pob.filanti.gui;
+package filanti.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;

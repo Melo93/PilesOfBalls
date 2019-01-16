@@ -1,11 +1,12 @@
-package pob.filanti.gui;
+package filanti.gui;
 
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import pob.filanti.core.GameConfig;
+import filanti.core.GameConfig;
+
 
 public class GameFrame extends JFrame{
 	/**
@@ -16,7 +17,7 @@ public class GameFrame extends JFrame{
 	
 	public GameFrame() {
 		this.setTitle("Pile of Balls"); //setto Titolo
-		this.setPreferredSize(new Dimension(GameConfig.GRAPHIC_GAME_WIDTH,GameConfig.GRAPHIC_GAME_HEIGHT));
+		this.setPreferredSize(new Dimension(GameConfig.GRAPHIC_GAME_WIDTH ,GameConfig.GRAPHIC_GAME_HEIGHT));
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true); // visibilità si del frame
 		gamePanel = new GamePanel(this); // // crea il nuovo pannello nella classe frame

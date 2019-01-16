@@ -1,4 +1,4 @@
-package pob.filanti.gui;
+package filanti.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -8,13 +8,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import pob.filanti.controller.KeyboardManager;
-import pob.filanti.controller.MouseManager;
-import pob.filanti.core.Ball;
-import pob.filanti.core.GameConfig;
-import pob.filanti.core.GameManager;
-import pob.filanti.core.TrisBalls;
-import pob.filanti.updater.Updater;
+import filanti.controller.KeyboardManager;
+import filanti.controller.MouseManager;
+import filanti.core.Ball;
+import filanti.core.GameConfig;
+import filanti.core.GameManager;
+import filanti.core.TrisBalls;
+import filanti.updater.Updater;
+
 
 public class PlayPanel extends JPanel{
 	/**
@@ -27,7 +28,6 @@ public class PlayPanel extends JPanel{
 	JButton roundRightButton; 
 	JButton roundLeftButton; 
 	JButton speedButton; 
-	GameManager matrix;
 	Updater update;
 	TrisBalls t;
 	TrisBalls t1;
@@ -39,8 +39,8 @@ public class PlayPanel extends JPanel{
 		this.setVisible(true);
 		this.setPreferredSize(new Dimension(HEIGHT, WIDTH));
 		mouseManager=new MouseManager(this);
-//		addMouseListener(mouseManager);
-//		addMouseMotionListener(mouseManager);
+		addMouseListener(mouseManager);
+		addMouseMotionListener(mouseManager);
 		
 		backButton = new JButton(new ImageIcon(ImageProvider.getBack2()));
 		backButton.setRolloverIcon(new ImageIcon(ImageProvider.getBack1()));
@@ -68,9 +68,9 @@ public class PlayPanel extends JPanel{
 
 		keyManager=new KeyboardManager(this);
 		addKeyListener(keyManager);
-		if(GameManager.getInstance()!=null) {
-			GameManager.getInstance().clear();
-		}
+//		if(GameManager.getInstance()!=null) {
+//			GameManager.getInstance().clear();
+//		}
 	
 		this.add(backButton);
 		this.add(leftButton);
@@ -108,7 +108,7 @@ public class PlayPanel extends JPanel{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		t=GameManager.getInstance().getCurrent();
-		t1=GameManager.getInstance().getNextTris();
+		t1=GameManager.getInstance().getNext();
 
 		g.drawImage(ImageProvider.getBackgroundPlayPanel(), 0, 0, null);
 
