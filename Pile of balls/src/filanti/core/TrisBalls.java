@@ -23,6 +23,9 @@ public class TrisBalls {
 			b1=new Ball(new Random().nextInt(3)+1,23,0);
 			b2=new Ball(new Random().nextInt(3)+1,22,2);
 			b3=new Ball(new Random().nextInt(3)+1,24,2);
+//			b1=new Ball(new Random().nextInt(3)+1,22,0);
+//			b2=new Ball(new Random().nextInt(3)+1,24,0);
+//			b3=new Ball(new Random().nextInt(3)+1,23,2);
 			
 			stop=false;
 
@@ -37,10 +40,45 @@ public class TrisBalls {
 	}
 	
 	public void update( ArrayList<Ball> balls) {
+		boolean b1Triggered = b1.checkCollision(balls);
+		boolean b2Triggered = b2.checkCollision(balls);
+		boolean b3Triggered = b3.checkCollision(balls);
+		if(b1Triggered) {
+			System.out.println("b1Triggered");
+			b1.update(balls);
+		}
+		if(b2Triggered) {
+			System.out.println("b2Triggered");
+			b2.update(balls);
 		
-		b1.update(balls);
-		b2.update(balls);
+		}
+			if(b3Triggered) {
+				System.out.println("b3Triggered");
+				b3.update(balls);
+
+			}
+		
+//		if(!b1Triggered) {
+//			System.out.println("!b1Triggered");
+//			b1.update(balls);
+//
+//		}
+//		
+//		if(!b2Triggered) {
+//			System.out.println("!b2Triggered");
+//			b2.update(balls);
+//
+//		}
+//		
+//		if(!b3Triggered) {
+//			System.out.println("!b3Triggered");
+//			b3.update(balls);
+//
+//		}
 		b3.update(balls);
+		b2.update(balls);
+		b1.update(balls);
+		
 			
 	}
 
