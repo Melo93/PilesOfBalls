@@ -36,9 +36,9 @@ public class KeyboardManager implements KeyListener{
 			GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x+1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
 			GameManager.getInstance().getCurrent().getB1().translate(+1, 0);
 			GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x+1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
-			GameManager.getInstance().getCurrent().getB1().translate(+1, 0);
+			GameManager.getInstance().getCurrent().getB2().translate(+1, 0);
 			GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x+1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
-			GameManager.getInstance().getCurrent().getB1().translate(+1, 0);
+			GameManager.getInstance().getCurrent().getB3().translate(+1, 0);
 			break;
 		
 //		case KeyEvent.VK_UP:

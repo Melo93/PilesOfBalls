@@ -28,12 +28,12 @@ public class Ball extends Rectangle{
 		return false;
 	}
 
-	public void update(ArrayList<Ball> balls) {
+	public void update( ArrayList<Ball> balls) {
 		if(!checkCollision(balls)) {
 			this.fall();
-			if(stop) {
-				balls.add(this);
-			}
+//			if(stop) {
+//				balls.add(this);
+//			}
 		}
 		else {
 			findPosition(balls);
@@ -70,20 +70,31 @@ public class Ball extends Rectangle{
 		if(right && left) {
 			stop=true;
 			
-			balls.add(this);
+		//	balls.add(this);
 		}
 		else if(right)
 			moveLeft();
 		else if(left)
 			moveRight();
 		else if(center) {
-			moveCenter();
+			boolean leftC=false;
+			boolean rightC=false;
+			for(Ball b:balls) {
+				if(this.x+2==b.x && this.y+2==b.y) rightC=true;
+				else if (this.x-2==b.x&&this.y+2==b.y) leftC=true;
+			}
+			if(leftC&&rightC)
+				moveCenter(-1,0);
+			else if(rightC)
+				moveCenter(-2,2);
+			else moveCenter(2, 2);
 		}
 	}
 
-	private void moveCenter() {
-		this.translate(-2,2);
-		this.setCenter(center.x-2,center.y+2);
+
+	private void moveCenter(int dx, int dy) {
+		this.translate(dx,dy);
+		this.setCenter(center.x+dx,center.y+dy);
 	}
 
 	private void moveRight() {

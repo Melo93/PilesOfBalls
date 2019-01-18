@@ -40,24 +40,67 @@ public class TrisBalls {
 	}
 	
 	public void update( ArrayList<Ball> balls) {
-		boolean b1Triggered = b1.checkCollision(balls);
-		boolean b2Triggered = b2.checkCollision(balls);
-		boolean b3Triggered = b3.checkCollision(balls);
-		if(b1Triggered) {
-			System.out.println("b1Triggered");
+		
+	 if(b1.y>=b2.y && b1.y>=b3.y) {
 			b1.update(balls);
-		}
-		if(b2Triggered) {
-			System.out.println("b2Triggered");
-			b2.update(balls);
-		
-		}
-			if(b3Triggered) {
-				System.out.println("b3Triggered");
+			if(b2.y>=b3.y) {
+				b2.update(balls);
 				b3.update(balls);
-
 			}
+			else {
+				b3.update(balls);
+				b2.update(balls);
+			}
+		}
 		
+		else if(b2.y>=b1.y && b2.y>=b3.y) {
+			b2.update(balls);
+			if(b3.y>=b1.y) {
+				b3.update(balls);
+				b1.update(balls);
+			}
+			else {
+				b1.update(balls);
+				b3.update(balls);
+			}
+		}
+		
+		else if(b3.y>=b1.y && b3.y>=b2.y) {
+			b3.update(balls);
+			if(b1.y>=b2.y) {
+				b1.update(balls);
+				b2.update(balls);
+			}
+			else {
+				b2.update(balls);
+				b1.update(balls);
+			}
+		}
+//		else {
+//			b3.update(balls);
+//			b2.update(balls);
+//			b1.update(balls);
+//			
+//		}
+		
+//		boolean b1Triggered = b1.checkCollision(balls);
+//		boolean b2Triggered = b2.checkCollision(balls);
+//		boolean b3Triggered = b3.checkCollision(balls);
+//		if(b1Triggered) {
+//			System.out.println("b1Triggered");
+//			b1.update(balls);
+//		}
+//		if(b2Triggered) {
+//			System.out.println("b2Triggered");
+//			b2.update(balls);
+//		
+//		}
+//			if(b3Triggered) {
+//				System.out.println("b3Triggered");
+//				b3.update(balls);
+//
+//			}
+//		
 //		if(!b1Triggered) {
 //			System.out.println("!b1Triggered");
 //			b1.update(balls);
@@ -75,9 +118,6 @@ public class TrisBalls {
 //			b3.update(balls);
 //
 //		}
-		b3.update(balls);
-		b2.update(balls);
-		b1.update(balls);
 		
 			
 	}

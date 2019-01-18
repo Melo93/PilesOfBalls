@@ -30,6 +30,9 @@ public class GameManager {
 //		board=new Board();
 		balls=new ArrayList<>();
 		current=new TrisBalls(1);
+		balls.add(current.getB1());
+		balls.add(current.getB2());
+		balls.add(current.getB3());
 		next=new TrisBalls(0);
 		
 	}
@@ -45,6 +48,9 @@ public class GameManager {
 		current=next;
 		current.setStatus(1);
 		current.setPositionTrisBall();
+		balls.add(current.getB1());
+		balls.add(current.getB2());
+		balls.add(current.getB3());
 		next=new TrisBalls(0);
 		
 	}
