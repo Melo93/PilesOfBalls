@@ -1,6 +1,5 @@
 package filanti.core;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,7 +9,6 @@ public class TrisBalls {
 	private Ball b3;	//pallina in basso destra
 	private boolean stop;
 	private int status;
-
 
 	public TrisBalls(int status) {
 		this.status=status;
@@ -27,20 +25,20 @@ public class TrisBalls {
 //			b2=new Ball(new Random().nextInt(3)+1,24,0);
 //			b3=new Ball(new Random().nextInt(3)+1,23,2);
 			
-			stop=false;
+			//stop=false;
 
 		}
 		else if(status==0) {
-			b1=new Ball(new Random().nextInt(3),2,6);
-			b2=new Ball(new Random().nextInt(3),1,8);
-			b3=new Ball(new Random().nextInt(3),3,8);
-			stop=true;
+			b1=new Ball(new Random().nextInt(3),1,5);
+			b2=new Ball(new Random().nextInt(3),0,7);
+			b3=new Ball(new Random().nextInt(3),2,7);
+			//stop=true;
 
 		}
 	}
 	
 	public void update( ArrayList<Ball> balls) {
-		
+	
 	 if(b1.y>=b2.y && b1.y>=b3.y) {
 			b1.update(balls);
 			if(b2.y>=b3.y) {
@@ -75,7 +73,8 @@ public class TrisBalls {
 				b2.update(balls);
 				b1.update(balls);
 			}
-		}
+	
+	}
 //		else {
 //			b3.update(balls);
 //			b2.update(balls);
@@ -182,7 +181,5 @@ public class TrisBalls {
 	public void setB3(Ball b3) {
 		this.b3 = b3;
 	}
-
-	
 
 }

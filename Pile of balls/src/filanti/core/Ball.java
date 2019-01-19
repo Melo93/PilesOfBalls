@@ -11,18 +11,21 @@ public class Ball extends Rectangle{
 	private int color;
 	private Point center;
 	private boolean stop;
-
+	private boolean canMove; 
 	public Ball( int color,int x, int y) {
 		super(x,y,GameConfig.BALL_WIDTH,GameConfig.BALL_HEIGHT);
 		this.speed=2;
 		this.color=color;
 		this.center=new Point((x+(x+GameConfig.BALL_WIDTH))/2,(y+(y+GameConfig.BALL_HEIGHT))/2);
 		stop=false;
+		canMove = true;
 	}
 
 	public boolean collisione(Ball b) {
 		if(this.y+this.height==b.y) {
-			if(this.x==b.x || this.x+1==b.x || this.x-1==b.x)	return true;
+			if(this.x==b.x || this.x+1==b.x || this.x-1==b.x) {
+				return true;
+			}
 		}
 
 		return false;
@@ -31,14 +34,20 @@ public class Ball extends Rectangle{
 	public void update( ArrayList<Ball> balls) {
 		if(!checkCollision(balls)) {
 			this.fall();
-//			if(stop) {
-//				balls.add(this);
-//			}
 		}
 		else {
+			canMove = false;
 			findPosition(balls);
 		}
 
+	}
+
+	public boolean isCanMove() {
+		return canMove;
+	}
+
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
 	}
 
 	public void fall() {
@@ -46,8 +55,10 @@ public class Ball extends Rectangle{
 			if(this.y+this.getSpeed()<32) {
 				this.translate(0,this.getSpeed());
 				this.setCenter(center.x,center.y+speed);
+			} else {
+				stop=true;
+				canMove = false;
 			}
-			else stop=true;
 		}
 	}
 
@@ -57,40 +68,42 @@ public class Ball extends Rectangle{
 		boolean center=false;
 		for(Ball b:balls) {
 			if(this.y+this.height==b.y) {
-				if(this.x==b.x)
+				if(this.x==b.x) {
 					center=true;
-				else if(this.x+1==b.x) 
+				} else if(this.x+1==b.x) {
 					right=true;
-				else if(this.x-1==b.x) 
+				} else if(this.x-1==b.x) {
 					left=true;
-
+				}
 			}
 		}
 
 		if(right && left) {
 			stop=true;
-			
-		//	balls.add(this);
 		}
-		else if(right)
+		else if(right) {
 			moveLeft();
-		else if(left)
+		} else if(left) {
 			moveRight();
-		else if(center) {
+		} else if(center) {
 			boolean leftC=false;
 			boolean rightC=false;
 			for(Ball b:balls) {
-				if(this.x+2==b.x && this.y+2==b.y) rightC=true;
-				else if (this.x-2==b.x&&this.y+2==b.y) leftC=true;
+				if(this.x+2==b.x && this.y+2==b.y) {
+					rightC=true;
+				} else if (this.x-2==b.x&&this.y+2==b.y) {
+					leftC=true;
+				}
 			}
-			if(leftC&&rightC)
+			if(leftC&&rightC) {
 				moveCenter(-1,0);
-			else if(rightC)
+			} else if(rightC) {
 				moveCenter(-2,2);
-			else moveCenter(2, 2);
+			} else {
+				moveCenter(2, 2);
+			}
 		}
 	}
-
 
 	private void moveCenter(int dx, int dy) {
 		this.translate(dx,dy);

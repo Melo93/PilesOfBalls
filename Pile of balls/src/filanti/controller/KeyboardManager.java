@@ -24,24 +24,28 @@ public class KeyboardManager implements KeyListener{
 		switch(e.getKeyCode()) {
 		
 		case KeyEvent.VK_LEFT:
-			GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x-1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
-			GameManager.getInstance().getCurrent().getB1().translate(-1, 0);
-			GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x-1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
-			GameManager.getInstance().getCurrent().getB2().translate(-1, 0);
-			GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x-1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
-			GameManager.getInstance().getCurrent().getB3().translate(-1, 0);
+			if(GameManager.getInstance().getCurrent().getB1().isCanMove() || GameManager.getInstance().getCurrent().getB2().isCanMove() || GameManager.getInstance().getCurrent().getB3().isCanMove()) {
+			GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x-2,GameManager.getInstance().getCurrent().getB1().getCenter().y));
+			GameManager.getInstance().getCurrent().getB1().translate(-2, 0);
+			GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x-2,GameManager.getInstance().getCurrent().getB2().getCenter().y));
+			GameManager.getInstance().getCurrent().getB2().translate(-2, 0);
+			GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x-2,GameManager.getInstance().getCurrent().getB3().getCenter().y));
+			GameManager.getInstance().getCurrent().getB3().translate(-2, 0);
+			}
 			break;
 			
 		case KeyEvent.VK_RIGHT:
-			GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x+1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
-			GameManager.getInstance().getCurrent().getB1().translate(+1, 0);
-			GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x+1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
-			GameManager.getInstance().getCurrent().getB2().translate(+1, 0);
-			GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x+1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
-			GameManager.getInstance().getCurrent().getB3().translate(+1, 0);
+			if(GameManager.getInstance().getCurrent().getB1().isCanMove() || GameManager.getInstance().getCurrent().getB2().isCanMove() || GameManager.getInstance().getCurrent().getB3().isCanMove()) {
+			GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x+2,GameManager.getInstance().getCurrent().getB1().getCenter().y));
+			GameManager.getInstance().getCurrent().getB1().translate(+2, 0);
+			GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x+2,GameManager.getInstance().getCurrent().getB2().getCenter().y));
+			GameManager.getInstance().getCurrent().getB2().translate(+2, 0);
+			GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x+2,GameManager.getInstance().getCurrent().getB3().getCenter().y));
+			GameManager.getInstance().getCurrent().getB3().translate(+2, 0);
+			}
 			break;
 		
-//		case KeyEvent.VK_UP:
+		case KeyEvent.VK_UP:
 //			if(GameManager.getInstance().getCurrent().getPositionLeft()>6) {
 //				GameManager.getInstance().getCurrent().setPositionLeft(1);
 //			}
