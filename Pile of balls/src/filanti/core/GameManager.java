@@ -67,10 +67,6 @@ public class GameManager {
 		System.out.println();
 		
 	}
-	
-	public static void main(String[] args) {
-		GameManager.getInstance();
-	}
 
 	public TrisBalls getCurrent() {
 		return current;

@@ -31,8 +31,8 @@ public class Ball extends Rectangle{
 		return false;
 	}
 
-	public void update( ArrayList<Ball> balls) {
-		if(!checkCollision(balls)) {
+	public void update( ArrayList<Ball> balls,Collision c) {
+		if(!checkCollision(balls,c)) {
 			this.fall();
 		}
 		else {
@@ -120,9 +120,11 @@ public class Ball extends Rectangle{
 		this.setCenter(center.x-1,center.y+2);
 	}
 
-	public boolean checkCollision( ArrayList<Ball> balls) {
+	public boolean checkCollision( ArrayList<Ball> balls, Collision c) {
 		for(Ball b:balls) {
 			if(this.collisione(b)) {
+				if(this.x<=b.x)	c=Collision.Right;
+				else c=Collision.Left;
 				return true;
 			}
 		}

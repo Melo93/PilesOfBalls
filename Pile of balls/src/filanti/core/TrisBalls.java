@@ -9,6 +9,7 @@ public class TrisBalls {
 	private Ball b3;	//pallina in basso destra
 	private boolean stop;
 	private int status;
+	private Collision c=null;
 
 	public TrisBalls(int status) {
 		this.status=status;
@@ -38,87 +39,37 @@ public class TrisBalls {
 	}
 	
 	public void update( ArrayList<Ball> balls) {
-	
-	 if(b1.y>=b2.y && b1.y>=b3.y) {
-			b1.update(balls);
-			if(b2.y>=b3.y) {
-				b2.update(balls);
-				b3.update(balls);
-			}
-			else {
-				b3.update(balls);
-				b2.update(balls);
-			}
-		}
-		
-		else if(b2.y>=b1.y && b2.y>=b3.y) {
-			b2.update(balls);
-			if(b3.y>=b1.y) {
-				b3.update(balls);
-				b1.update(balls);
-			}
-			else {
-				b1.update(balls);
-				b3.update(balls);
-			}
-		}
-		
-		else if(b3.y>=b1.y && b3.y>=b2.y) {
-			b3.update(balls);
-			if(b1.y>=b2.y) {
-				b1.update(balls);
-				b2.update(balls);
-			}
-			else {
-				b2.update(balls);
-				b1.update(balls);
-			}
-	
-	}
-//		else {
-//			b3.update(balls);
-//			b2.update(balls);
-//			b1.update(balls);
-//			
-//		}
-		
-//		boolean b1Triggered = b1.checkCollision(balls);
-//		boolean b2Triggered = b2.checkCollision(balls);
-//		boolean b3Triggered = b3.checkCollision(balls);
-//		if(b1Triggered) {
-//			System.out.println("b1Triggered");
-//			b1.update(balls);
-//		}
-//		if(b2Triggered) {
-//			System.out.println("b2Triggered");
-//			b2.update(balls);
-//		
-//		}
-//			if(b3Triggered) {
-//				System.out.println("b3Triggered");
-//				b3.update(balls);
-//
-//			}
-//		
-//		if(!b1Triggered) {
-//			System.out.println("!b1Triggered");
-//			b1.update(balls);
-//
-//		}
-//		
-//		if(!b2Triggered) {
-//			System.out.println("!b2Triggered");
-//			b2.update(balls);
-//
-//		}
-//		
-//		if(!b3Triggered) {
-//			System.out.println("!b3Triggered");
-//			b3.update(balls);
-//
-//		}
-		
+		updateOrder(balls);
 			
+	}
+	
+	public void updateOrder(ArrayList<Ball> balls) {
+		c=chiCollide(balls);
+		if(c==Collision.Left) {
+			b2.update(balls, c);
+			b3.update(balls, c);
+			b1.update(balls, c);
+		}
+		else if(c==Collision.Right) {
+			b3.update(balls, c);
+			b2.update(balls, c);
+			b1.update(balls, c);
+		}
+		else {
+			b3.update(balls, c);
+			b2.update(balls, c);
+			b1.update(balls, c);
+		}
+	}
+
+private Collision chiCollide(ArrayList<Ball> balls) {
+		for(Ball b:balls) {
+			if(b3.y+b3.height==b.y) {
+				if(b3.collisione(b)) return Collision.Right;
+				else if(b2.collisione(b)) return Collision.Left;
+			}
+		}
+		return null;
 	}
 
 //	public void fallTrisball(Board b) {
