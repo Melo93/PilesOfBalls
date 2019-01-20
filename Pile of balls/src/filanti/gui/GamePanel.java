@@ -40,7 +40,7 @@ public class GamePanel extends JPanel{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(ImageProvider.getBackgroundStartPanel(), 0, 0, null);
-		startButton.setBounds(475,300,90,40);
+		startButton.setBounds(475,350,90,40);
 		startButton.setOpaque(false);
 		startButton.setContentAreaFilled(false);
 		startButton.setBorderPainted(false);

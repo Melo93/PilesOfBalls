@@ -37,7 +37,7 @@ public class KeyboardManager implements KeyListener{
 			break;
 
 		case KeyEvent.VK_RIGHT:
-			if(GameManager.getInstance().getCurrent().getB1().x+2<28 && GameManager.getInstance().getCurrent().getB2().x+2<28 && GameManager.getInstance().getCurrent().getB3().x+2<28) {
+			if(GameManager.getInstance().getCurrent().getB1().x+2<=28 && GameManager.getInstance().getCurrent().getB2().x+2<=28 && GameManager.getInstance().getCurrent().getB3().x+2<=28) {
 				if(GameManager.getInstance().getCurrent().getB1().isCanMove() && GameManager.getInstance().getCurrent().getB2().isCanMove() && GameManager.getInstance().getCurrent().getB3().isCanMove()) {
 					GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x+2,GameManager.getInstance().getCurrent().getB1().getCenter().y));
 					GameManager.getInstance().getCurrent().getB1().translate(+2, 0);

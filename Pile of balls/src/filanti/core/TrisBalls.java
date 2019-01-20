@@ -19,9 +19,9 @@ public class TrisBalls {
 	public void setPositionTrisBall()
 	{
 		if(status==1) {
-			b1=new Ball(new Random().nextInt(3)+1,23,0);
-			b2=new Ball(new Random().nextInt(3)+1,22,2);
-			b3=new Ball(new Random().nextInt(3)+1,24,2);
+			b1=new Ball(new Random().nextInt(3)+1,19,0);
+			b2=new Ball(new Random().nextInt(3)+1,18,2);
+			b3=new Ball(new Random().nextInt(3)+1,20,2);
 //			b1=new Ball(new Random().nextInt(3)+1,22,0);
 //			b2=new Ball(new Random().nextInt(3)+1,24,0);
 //			b3=new Ball(new Random().nextInt(3)+1,23,2);
@@ -65,8 +65,11 @@ public class TrisBalls {
 private Collision chiCollide(ArrayList<Ball> balls) {
 		for(Ball b:balls) {
 			if(b3.y+b3.height==b.y) {
-				if(b3.collisione(b)) return Collision.Right;
-				else if(b2.collisione(b)) return Collision.Left;
+				if(b3.collisione(b)) {
+					return Collision.Right;
+				} else if(b2.collisione(b)) {
+					return Collision.Left;
+				}
 			}
 		}
 		return null;

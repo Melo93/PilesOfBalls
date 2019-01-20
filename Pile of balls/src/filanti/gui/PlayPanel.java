@@ -112,32 +112,32 @@ public class PlayPanel extends JPanel{
 
 		g.drawImage(ImageProvider.getBackgroundPlayPanel(), 0, 0, null);
 
-		backButton.setBounds(35,615,100,100);
+		backButton.setBounds(80,615,100,100);
 		backButton.setOpaque(false);
 		backButton.setContentAreaFilled(false);
 		backButton.setBorderPainted(false);
 
-		leftButton.setBounds(885,50,100,100);
+		leftButton.setBounds(850,73,100,100);
 		leftButton.setOpaque(false);
 		leftButton.setContentAreaFilled(false);
 		leftButton.setBorderPainted(false);
 
-		rightButton.setBounds(885,175,100,100);
+		rightButton.setBounds(850,213,100,100);
 		rightButton.setOpaque(false);
 		rightButton.setContentAreaFilled(false);
 		rightButton.setBorderPainted(false);
 
-		roundLeftButton.setBounds(885,312,100,100);
+		roundLeftButton.setBounds(850,353,100,100);
 		roundLeftButton.setOpaque(false);
 		roundLeftButton.setContentAreaFilled(false);
 		roundLeftButton.setBorderPainted(false);
 
-		roundRightButton.setBounds(885,462,100,100);
+		roundRightButton.setBounds(850,493,100,100);
 		roundRightButton.setOpaque(false);
 		roundRightButton.setContentAreaFilled(false);
 		roundRightButton.setBorderPainted(false);
 
-		speedButton.setBounds(885,625,100,100);
+		speedButton.setBounds(850,633,100,100);
 		speedButton.setOpaque(false);
 		speedButton.setContentAreaFilled(false);
 		speedButton.setBorderPainted(false);

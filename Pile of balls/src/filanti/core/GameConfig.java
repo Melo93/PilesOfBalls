@@ -8,7 +8,7 @@ public class GameConfig {
 	public static final int LOGIC_GAME_HEIGHT=35;
 	
 	public static final int GRAPHIC_GAME_WIDTH=1030;
-	public static final int GRAPHIC_GAME_HEIGHT=805;
+	public static final int GRAPHIC_GAME_HEIGHT=790;
 	
 	public static final int FLOOR=31;
 	public static final int LEFT=7; 
