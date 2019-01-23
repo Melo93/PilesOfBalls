@@ -65,7 +65,6 @@ public class Ball extends Rectangle{
 	}
 
 	public void riposizionati(CopyOnWriteArrayList<Ball> balls,Collision c) {
-		boolean fermati = false;
 		while(!stopRip) {
 			for(Ball b: balls) {
 				if(b.y != 32) {
