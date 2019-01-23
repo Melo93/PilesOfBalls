@@ -1,8 +1,6 @@
 package filanti.core;
 
-import java.util.ArrayList;
-
-import filanti.updater.Updater;
+import java.util.concurrent.CopyOnWriteArrayList;
 /*
  * 1)accertata collisione
  * 2)scoperta di chi si è permesso
@@ -11,24 +9,19 @@ import filanti.updater.Updater;
  */
 public class GameManager {
 	private static GameManager instance;
-
+	private TrisBalls current;
+	private TrisBalls next;
+	private CopyOnWriteArrayList<Ball> balls;
+	
 	public static GameManager getInstance() {
 		if(instance==null) {
 			instance=new GameManager();
 		}
 		return instance;
 	}
-	
-//	private Board board;
-	private TrisBalls current;
-	private TrisBalls next;
-	private ArrayList<Ball> balls;
 
-	
-	
 	private GameManager() {
-//		board=new Board();
-		balls=new ArrayList<>();
+		balls=new CopyOnWriteArrayList();
 		current=new TrisBalls(1);
 		balls.add(current.getB1());
 		balls.add(current.getB2());
@@ -39,11 +32,11 @@ public class GameManager {
 	
 	public void update() {
 		current.update(balls);
-		if(current.getB1().isStop()&&current.getB2().isStop()&&current.getB3().isStop())	change();
+		if(current.getB1().isStop()&&current.getB2().isStop()&&current.getB3().isStop()) {
+			change();
+		}
 	}
-
-
-
+	
 	private void change() {
 		current=next;
 		current.setStatus(1);
@@ -56,7 +49,6 @@ public class GameManager {
 	}
 
 	public void print() {
-		
 		System.out.println(current.getB1().toString());
 		System.out.println(current.getB2().toString());
 		System.out.println(current.getB3().toString());
@@ -65,7 +57,6 @@ public class GameManager {
 			System.out.println(b.x + " "+ b.y);
 		}
 		System.out.println();
-		
 	}
 
 	public TrisBalls getCurrent() {
@@ -84,14 +75,11 @@ public class GameManager {
 		this.next = next;
 	}
 
-	public ArrayList<Ball> getBalls() {
+	public CopyOnWriteArrayList<Ball> getBalls() {
 		return balls;
 	}
 
-	public void setBalls(ArrayList<Ball> balls) {
+	public void setBalls(CopyOnWriteArrayList<Ball> balls) {
 		this.balls = balls;
-	}
-	
-	
-	
+	}	
 }

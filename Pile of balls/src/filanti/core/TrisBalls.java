@@ -1,7 +1,7 @@
 package filanti.core;
 
-import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TrisBalls {
 	private Ball b1;	//pallina in alto
@@ -13,15 +13,25 @@ public class TrisBalls {
 
 	public TrisBalls(int status) {
 		this.status=status;
+		b1=new Ball(new Random().nextInt(4),19,0);
+		b2=new Ball(new Random().nextInt(4),18,2);
+		b3=new Ball(new Random().nextInt(4),20,2);
 		setPositionTrisBall();
+		
 	}
 	
 	public void setPositionTrisBall()
 	{
 		if(status==1) {
-			b1=new Ball(new Random().nextInt(3)+1,19,0);
-			b2=new Ball(new Random().nextInt(3)+1,18,2);
-			b3=new Ball(new Random().nextInt(3)+1,20,2);
+			b1.setCenter(20, 1);
+			b1.x = 19;
+			b1.y = 0;
+			b2.setCenter(19,3);
+			b2.x = 18;
+			b2.y = 2;
+			b3.setCenter(21,3);
+			b3.x = 20;
+			b3.y = 2;
 //			b1=new Ball(new Random().nextInt(3)+1,22,0);
 //			b2=new Ball(new Random().nextInt(3)+1,24,0);
 //			b3=new Ball(new Random().nextInt(3)+1,23,2);
@@ -30,20 +40,24 @@ public class TrisBalls {
 
 		}
 		else if(status==0) {
-			b1=new Ball(new Random().nextInt(3),1,5);
-			b2=new Ball(new Random().nextInt(3),0,7);
-			b3=new Ball(new Random().nextInt(3),2,7);
-			//stop=true;
-
+			b1.setCenter(2, 6);
+			b1.x = 1;
+			b1.y = 5;
+			b2.setCenter(1,8);
+			b2.x = 0;
+			b2.y = 7;
+			b3.setCenter(3,8);
+			b3.x = 2;
+			b3.y = 7;
 		}
 	}
 	
-	public void update( ArrayList<Ball> balls) {
+	public void update( CopyOnWriteArrayList<Ball> balls) {
 		updateOrder(balls);
 			
 	}
 	
-	public void updateOrder(ArrayList<Ball> balls) {
+	public void updateOrder(CopyOnWriteArrayList<Ball> balls) {
 		c=chiCollide(balls);
 		if(c==Collision.Left) {
 			b2.update(balls, c);
@@ -62,7 +76,7 @@ public class TrisBalls {
 		}
 	}
 
-private Collision chiCollide(ArrayList<Ball> balls) {
+private Collision chiCollide(CopyOnWriteArrayList<Ball> balls) {
 		for(Ball b:balls) {
 			if(b3.y+b3.height==b.y) {
 				if(b3.collisione(b)) {
