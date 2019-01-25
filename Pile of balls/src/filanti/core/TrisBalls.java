@@ -76,7 +76,7 @@ public class TrisBalls {
 		}
 	}
 
-private Collision chiCollide(CopyOnWriteArrayList<Ball> balls) {
+	private Collision chiCollide(CopyOnWriteArrayList<Ball> balls) {
 		for(Ball b:balls) {
 			if(b3.y+b3.height==b.y) {
 				if(b3.collisione(b)) {

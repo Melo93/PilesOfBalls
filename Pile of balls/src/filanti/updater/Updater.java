@@ -18,9 +18,6 @@ public class Updater extends Thread {
 				//GameManager.getInstance().print();
 				pp.repaint();
 				GameManager.getInstance().update();
-				
-			
-				
 				sleep(300);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

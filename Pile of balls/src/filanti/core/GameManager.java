@@ -33,9 +33,66 @@ public class GameManager {
 	public void update() {
 		current.update(balls);
 		if(current.getB1().isStop()&&current.getB2().isStop()&&current.getB3().isStop()) {
+			for(Ball b: balls) {
+				b.scoppia(balls);
+//				//b.pallineDaPosizionare(balls);
+//				//b.setStop(false);
+			}
+			boolean pallineTuttePosizionate = false; 
+			while(!pallineTuttePosizionate) {
+				for(Ball b: balls) {
+					b.pallineDaPosizionare(balls);
+					//if(b.y+b.height < 32) {
+						if(b.checkCollision2(balls)) {
+							pallineTuttePosizionate = false;
+						}
+					//}
+					b.pallineDaPosizionare(balls);
+					b.scoppia(balls);
+				}
+				pallineTuttePosizionate = true;
+			
+			}
 			change();
 		}
 	}
+			//			}
+//			do{
+////				for()
+////					b.scoppia(balls);
+////					b.pallineDaPosizionare(balls);
+//				for(Ball b: balls) {
+//					b.scoppia(balls);
+//					b.pallineDaPosizionare(balls);
+//					
+//				}
+//				possibileScoppio();
+//				tutteLePallineSistemate();
+//			}while(!tutteLePallineSistemate() && !possibileScoppio());
+//			
+//			change();
+//		}
+//		
+//	}
+//	private boolean possibileScoppio() {
+//		for(Ball b: balls) {
+//			if(b.scoppia(balls)) {
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+//	private boolean tutteLePallineSistemate() {
+//		for(Ball b: balls) {
+//			b.pallineDaPosizionare(balls);
+//			if(b.y+b.height < 32) {
+//				if(!b.checkCollision2(balls)) {
+//					return false;
+//				}
+//			}
+//		}
+//		return true;
+//	}
 	
 	private void change() {
 		current=next;

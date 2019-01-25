@@ -12,7 +12,7 @@ public class Ball extends Rectangle{
 	private Point center;
 	private boolean stop;
 	private boolean canMove;
-	private boolean stopRip;
+	
 	public Ball( int color,int x, int y) {
 		super(x,y,GameConfig.BALL_WIDTH,GameConfig.BALL_HEIGHT);
 		this.speed=2;
@@ -20,7 +20,6 @@ public class Ball extends Rectangle{
 		this.center=new Point((x+(x+GameConfig.BALL_WIDTH))/2,(y+(y+GameConfig.BALL_HEIGHT))/2);
 		stop=false;
 		canMove = true;
-		stopRip=false;
 	}
 
 	public boolean collisione(Ball b) {
@@ -29,7 +28,6 @@ public class Ball extends Rectangle{
 				return true;
 			}
 		}
-
 		return false;
 	}
 
@@ -40,16 +38,28 @@ public class Ball extends Rectangle{
 		else {
 			canMove = false;
 			findPosition(balls);	
-			scoppia(balls,c);
+			//scoppia(balls);
+		}
+	}
+	
+	public void update2(CopyOnWriteArrayList<Ball> balls) {
+		if(!checkCollision2(balls)) {
+			this.fall();
+		}
+		else {
+			canMove = false;
+			findPosition(balls);	
+			//scoppia(balls);
 		}
 	}
 		
-	public boolean isCanMove() {
-		return canMove;
-	}
-
-	public void setCanMove(boolean canMove) {
-		this.canMove = canMove;
+	public boolean checkCollision2(CopyOnWriteArrayList<Ball> balls) {
+			for(Ball b:balls) {
+				if(this.collisione(b) || this.y==32 || this.y+this.height==30) {
+					return true;
+				}
+			}
+			return false;
 	}
 
 	public void fall() {
@@ -64,20 +74,10 @@ public class Ball extends Rectangle{
 		}
 	}
 
-	public void riposizionati(CopyOnWriteArrayList<Ball> balls,Collision c) {
-		while(!stopRip) {
-			for(Ball b: balls) {
-				if(b.y != 32) {
-					findPosition(balls);
-				}
-			}
-		}		
-	}
-	public void findPosition( CopyOnWriteArrayList<Ball> balls) {
+	public void findPosition(CopyOnWriteArrayList<Ball> balls) {
 		boolean left=false;
 		boolean right=false;
 		boolean center=false;
-		stopRip = false;
 		for(Ball b:balls) {
 			if(this.y+this.height==b.y) {
 				if(this.x==b.x) {
@@ -89,15 +89,13 @@ public class Ball extends Rectangle{
 				}
 			}
 		}
-
 		if(right && left) {
 			stop=true;
-			stopRip = true;
 		}
 		else if(right) {
-			moveLeft();
+			moveBall(-1,2);
 		} else if(left) {
-			moveRight();
+			moveBall(1,2);
 		} else if(center) {
 			boolean leftC=false;
 			boolean rightC=false;
@@ -109,30 +107,22 @@ public class Ball extends Rectangle{
 				}
 			}
 			if(leftC&&rightC) {
-				moveCenter(-1,0);
+				moveBall(-1,0);
 			} else if(rightC) {
-				moveCenter(-2,2);
+				moveBall(-2,2);
 			} else {
-				moveCenter(2, 2);
+				moveBall(2, 2);
 			}
 		}
 	}
 
-	private void moveCenter(int dx, int dy) {
+	private void moveBall(int dx, int dy) {
 		this.translate(dx,dy);
 		this.setCenter(center.x+dx,center.y+dy);
 	}
 
-	private void moveRight() {
-		this.translate(1,2);
-		this.setCenter(center.x+1,center.y+2);
-	}
-
-	public void moveLeft() {
-		this.translate(-1,2);
-		this.setCenter(center.x-1,center.y+2);
-	}
-
+	
+	
 	public boolean checkCollision( CopyOnWriteArrayList<Ball> balls, Collision c) {
 		for(Ball b:balls) {
 			if(this.collisione(b)) {
@@ -147,7 +137,7 @@ public class Ball extends Rectangle{
 		return false;
 	}
 	
-	public void scoppia(CopyOnWriteArrayList<Ball> balls, Collision c) {
+	public boolean scoppia(CopyOnWriteArrayList<Ball> balls) {
 		for(Ball b: balls) {
 			CopyOnWriteArrayList<Ball> controllate = new CopyOnWriteArrayList<>();
 			CopyOnWriteArrayList<Ball> daControllare = new CopyOnWriteArrayList<>();
@@ -155,10 +145,29 @@ public class Ball extends Rectangle{
 			if(cercaUguali(b, balls, controllate, daControllare)) {
 				if(controllate.size() >= 4) {
 					balls.removeAll(controllate);
-					//riposizionati(balls, c);
+					for(Ball b1 : balls) {
+						b1.setStop(false);
+						b1.update2(balls);
+					}
+					return true;
 				}
 			}
 		}
+		return false;
+	}
+	public void pallineDaPosizionare(CopyOnWriteArrayList<Ball> balls) {
+		for(Ball b: balls) {
+			b.setStop(false);
+			b.update2(balls);
+		}
+	}
+		
+    
+	public boolean tuttePosizionateFinale(CopyOnWriteArrayList<Ball> balls) {
+		if(this.checkCollision2(balls)) {
+				return false; 
+		}
+		return true;
 	}
 	
 	public boolean cercaUguali(Ball temp,CopyOnWriteArrayList<Ball> balls, CopyOnWriteArrayList<Ball> controllate, CopyOnWriteArrayList<Ball> daControllare) {
@@ -219,18 +228,81 @@ public class Ball extends Rectangle{
 			return false;
 		}
 	}
-
+	
+//	public boolean riposizionati(CopyOnWriteArrayList<Ball> balls) {
+//		if(controllaDiagonale(balls, -1) && controllaDiagonale(balls, 1)){
+//				return true;
+//		}
+//		else if(controllaDiagonale(balls, -1) && !controllaDiagonale(balls, 1)) {
+//			this.translate(1, 2);
+//			this.setCenter(center.x+1, center.y+2);
+//			return riposizionati(balls);
+//		}
+//		else if(!controllaDiagonale(balls, -1) && controllaDiagonale(balls, 1)) {
+//			this.translate(-1, 2);
+//			this.setCenter(center.x+1, center.y+2);
+//			return riposizionati(balls);
+//		}
+//		if(this.y == 32) {
+//			return true;
+//		}
+//		//this.setStop(false);
+//		//this.update2(balls);
+//		//this.translate(0, 2);
+//		//this.setCenter(center.x, center.y+2);
+//		return riposizionati(balls);
+//	}
+//	public void posFinal(CopyOnWriteArrayList<Ball> balls) {
+//		boolean sinistraOccupata = false;
+//		boolean destraOccupata = false;
+//		
+//			for(Ball b: balls) {
+//				if(this.y+this.getSpeed()<32) {
+//				if(this.y+this.height==b.y) {
+//					if(b.x == this.x-2 && b.y == this.y+2) {
+//						sinistraOccupata = true;
+//					}
+//					if(b.x == this.x+2 && b.y == this.y+2) {
+//						destraOccupata = true;	
+//					}
+//				}
+//			}
+//			if(sinistraOccupata && destraOccupata) {
+//				this.translate(this.x,this.y);
+//				this.setCenter(this.x,this.y);
+//			}
+//			
+//			else if(sinistraOccupata) {
+//				this.translate(this.x+2,this.y+2);
+//				this.setCenter(this.x+2,this.y+2);
+//			}
+//			else if(destraOccupata) {
+//				this.translate(this.x-2,this.y+2);
+//				this.setCenter(center.x-2,center.y+2);
+//			}
+//			else {
+//				this.translate(this.x+2,this.y+2);
+//				this.setCenter(center.x+2,center.y+2);
+//			}
+//		}
+//	}
+	
 	public int getColor() {
 		return color;
-
 	}
 
 	public Point getCenter() {
 		return center;
 	}
 
+	public boolean isCanMove() {
+		return canMove;
+	}
 
-
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
+	}
+	
 	public void setCenter(Point center) {
 		this.center = center;
 	}
@@ -260,5 +332,4 @@ public class Ball extends Rectangle{
 	public String toString() {
 		return this.x + "-" + this.y + "centro: " +  center.x + "-" + center.y;
 	}
-
 }
