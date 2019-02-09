@@ -222,7 +222,7 @@ public class TrisBalls {
 	}
 	
 	public void rotateLeft() {
-		if((rotateLeft==1 && rotateRight==7) || (rotateLeft==7 && rotateRight==1)) {
+		if(rotateLeft==1 ||rotateLeft==7) {
 			b1.setPositionBall(b1.x-1, b1.y);
 			b2.setPositionBall(b2.x, b2.y+2);
 			b3.setPositionBall(b3.x+1, b3.y);
@@ -230,7 +230,7 @@ public class TrisBalls {
 			b2.setCenter(b2.x+1,b2.y+1);
 			b3.setCenter(b3.x+1, b3.y+1);
 		}
-		else if(rotateLeft==2 && rotateRight==6) {
+		else if(rotateLeft==2 ) {
 			b1.setPositionBall(b1.x-1, b1.y);
 			b2.setPositionBall(b2.x+1, b2.y);
 			b3.setPositionBall(b3.x, b3.y-2);
@@ -238,7 +238,7 @@ public class TrisBalls {
 			b2.setCenter(b2.x+1,b2.y+1);
 			b3.setCenter(b3.x+1, b3.y+1);
 		}
-		else if(rotateLeft==3 && rotateRight==5) {
+		else if(rotateLeft==3) {
 			b1.setPositionBall(b1.x, b1.y+2);
 			b2.setPositionBall(b2.x+1, b2.y);
 			b3.setPositionBall(b3.x-1, b3.y);
@@ -246,7 +246,7 @@ public class TrisBalls {
 			b2.setCenter(b2.x+1,b2.y+1);
 			b3.setCenter(b3.x+1, b3.y+1);
 		}
-		else if(rotateLeft==4 && rotateRight==4) {
+		else if(rotateLeft==4) {
 			b1.setPositionBall(b1.x+1, b1.y);
 			b2.setPositionBall(b2.x, b2.y-2);
 			b3.setPositionBall(b3.x-1, b3.y);
@@ -254,7 +254,7 @@ public class TrisBalls {
 			b2.setCenter(b2.x+1,b2.y+1);
 			b3.setCenter(b3.x+1, b3.y+1);
 		}
-		else if(rotateLeft==5 && rotateRight==3) {
+		else if(rotateLeft==5) {
 			b1.setPositionBall(b1.x+1, b1.y);
 			b2.setPositionBall(b2.x-1, b2.y);
 			b3.setPositionBall(b3.x, b3.y+2);
@@ -262,7 +262,7 @@ public class TrisBalls {
 			b2.setCenter(b2.x+1,b2.y+1);
 			b3.setCenter(b3.x+1, b3.y+1);
 		}
-		else if(rotateLeft==6 && rotateRight==2) {
+		else if(rotateLeft==6) {
 			b1.setPositionBall(b1.x, b1.y-2);
 			b2.setPositionBall(b2.x-1, b2.y);
 			b3.setPositionBall(b3.x+1, b3.y);

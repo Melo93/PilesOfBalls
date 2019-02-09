@@ -121,5 +121,6 @@ public class GameManager {
 	public void setBalls(CopyOnWriteArrayList<Ball> balls) {
 		this.balls = balls;
 	}
+
 	
 }

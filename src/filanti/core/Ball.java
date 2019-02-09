@@ -74,17 +74,19 @@ public class Ball extends Rectangle{
 		if(this.y==30) {
 			for(Ball b:balls) {
 				if(this!=b) {
-					if(this.x%2!=0 && b.x%2!=0 && this.x<b.x) {
+					if(this.x%2!=0 && b.x%2!=0 && this.x+2==b.x) {
 						this.translate(-1, 0);
 						this.setCenter(this.x+1,this.y+1);
 						b.translate(1, 0);
 						b.setCenter(b.x+1, b.y+1);
+						break;
 					}
-					else if(this.x%2!=0 && b.x%2!=0 && this.x>b.x) {
+					else if(this.x%2!=0 && b.x%2!=0 && this.x-2==b.x) {
 						this.translate(1, 0);
 						this.setCenter(this.x+1,this.y+1);
 						b.translate(-1, 0);
 						b.setCenter(b.x+1, b.y+1);
+						break;
 					}
 				}
 			}
@@ -167,7 +169,7 @@ public class Ball extends Rectangle{
 				else if(this.x == 27) {
 					moveBall(-1,0);
 				}
-				else if(this.x == 10) {
+				else if(this.x == 11) {
 					moveBall(1,0);
 				}
 			}
@@ -178,7 +180,7 @@ public class Ball extends Rectangle{
 				else if(this.x == 27) {
 					moveBall(1,0);
 				}
-				else if(this.x == 10) {
+				else if(this.x == 11) {
 					moveBall(-1,0);
 				}
 			}
