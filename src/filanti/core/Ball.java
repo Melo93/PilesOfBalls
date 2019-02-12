@@ -4,7 +4,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class Ball extends Rectangle{
+
+
+public class Ball extends Rectangle implements Cloneable{
 	private static final long serialVersionUID = 1L;
 	private int speed;
 	private int color;
@@ -59,9 +61,10 @@ public class Ball extends Rectangle{
 		return false;
 	}
 
-	public void update( CopyOnWriteArrayList<Ball> balls) {
+	public void update( CopyOnWriteArrayList<Ball> balls, TrisBalls tb) {
 		if(!this.checkCollision(balls) && isTrisball) {
-			this.fall(balls);
+			this.fall(balls, tb);
+			
 		}
 		else {
 			//if(!this.posizioneFinaleTrovata(balls)) {
@@ -70,35 +73,80 @@ public class Ball extends Rectangle{
 		}
 	}
 
-	private void controllaSuolo(CopyOnWriteArrayList<Ball> balls) {
+	private void controllaSuolo(CopyOnWriteArrayList<Ball> balls, TrisBalls tb) {
+
 		if(this.y==30) {
 			for(Ball b:balls) {
-				if(this!=b) {
-					if(this.x%2!=0 && b.x%2!=0 && this.x+2==b.x) {
-						this.translate(-1, 0);
-						this.setCenter(this.x+1,this.y+1);
-						b.translate(1, 0);
-						b.setCenter(b.x+1, b.y+1);
-						break;
-					}
-					else if(this.x%2!=0 && b.x%2!=0 && this.x-2==b.x) {
-						this.translate(1, 0);
-						this.setCenter(this.x+1,this.y+1);
-						b.translate(-1, 0);
-						b.setCenter(b.x+1, b.y+1);
-						break;
+				for(Ball b1:balls) {
+					if(this!=b && this!=b1 && b!=b1) {
+						if(b.isTrisball && b1.isTrisball) {
+							if(tb.getRotate()%2!=0) {
+								if(this.x%2!=0 && b.x%2!=0 && this.x+2==b.x) {
+									this.translate(-1, 0);
+									this.setCenter(this.x+1,this.y+1);
+									b.translate(1, 0);
+									b.setCenter(b.x+1, b.y+1);
+									break;
+								}
+								else if(this.x%2!=0 && b.x%2!=0 && this.x-2==b.x) {
+									this.translate(1, 0);
+									this.setCenter(this.x+1,this.y+1);
+									b.translate(-1, 0);
+									b.setCenter(b.x+1, b.y+1);
+									break;
+								}
+								if(this.x%2!=0 && b1.x%2!=0 && this.x+2==b1.x) {
+									this.translate(-1, 0);
+									this.setCenter(this.x+1,this.y+1);
+									b1.translate(1, 0);
+									b1.setCenter(b1.x+1, b1.y+1);
+									break;
+								}
+								else if(this.x%2!=0 && b1.x%2!=0 && this.x-2==b1.x) {
+									this.translate(1, 0);
+									this.setCenter(this.x+1,this.y+1);
+									b1.translate(-1, 0);
+									b1.setCenter(b1.x+1, b1.y+1);
+									break;
+								}
+							}
+							else if(tb.getRotate()%2==0) {
+
+								 if(this.x%2!=0 && b1.x%2==0 && b.x%2==0) {
+									if(this.x>19) {
+										this.translate(-1, 0);
+										b.translate(-1, 0);
+										b1.translate(-1, 0);
+										this.setCenter(this.x+1,this.y+1);
+										b.setCenter(b.x+1,b.y+1);
+										b1.setCenter(b1.x+1,b1.y+1);
+										break;
+									}
+									else {
+										this.translate(1, 0);
+										b.translate(1, 0);
+										b1.translate(1, 0);
+										this.setCenter(this.x+1,this.y+1);
+										b.setCenter(b.x+1,b.y+1);
+										b1.setCenter(b1.x+1,b1.y+1);
+										break;
+									}
+								}
+							}
+						}
 					}
 				}
 			}
 		}
+		
 	}
 
 
 
-	private void fall( CopyOnWriteArrayList<Ball> balls) {
+	private void fall( CopyOnWriteArrayList<Ball> balls,TrisBalls tb) {
 		this.translate(0,this.getSpeed());
 		this.setCenter(center.x,center.y+speed);
-		this.controllaSuolo(balls);
+		this.controllaSuolo(balls,tb);
 	}
 
 	public void findPosition(CopyOnWriteArrayList<Ball> balls) {
@@ -142,16 +190,16 @@ public class Ball extends Rectangle{
 				//				if(this.x > 10 && this.x+2 <= 28) {
 				//					moveBall(-1,0);
 				//				}
-//				if(this.x >= 10 && this.x < 12) {
-//					moveBall(1, 0);
-//				}else if(this.x <= 28 && this.x>26) {
-//					moveBall(-1,0);
-//				}
-//				else {
-//					moveBall(1,0);
-//				}
-//				if(this.x == 10) {moveBall(1, 0);}
-//				else if (this.x == 28) {moveBall(-1,0);}
+				//				if(this.x >= 10 && this.x < 12) {
+				//					moveBall(1, 0);
+				//				}else if(this.x <= 28 && this.x>26) {
+				//					moveBall(-1,0);
+				//				}
+				//				else {
+				//					moveBall(1,0);
+				//				}
+				//				if(this.x == 10) {moveBall(1, 0);}
+				//				else if (this.x == 28) {moveBall(-1,0);}
 				if(this.x >= 10 && this.x < 18) {
 					if(this.x == 11) { moveBall(-1,0);}
 					else {moveBall(1,0);}
@@ -160,7 +208,7 @@ public class Ball extends Rectangle{
 					if(this.x == 27) { moveBall(1,0);}
 					else {moveBall(-1,0);}
 				}
-				
+
 			}
 			else if(rightC) {
 				if(this.x > 10 && this.x < 28) {
@@ -351,4 +399,12 @@ public class Ball extends Rectangle{
 		this.x=x;
 		this.y=y;
 	}
+	
+	
+	public Ball clone() {
+		Ball b=(Ball) super.clone();
+		b.center=(Point) this.center.clone();
+		return b;
+	}
+	
 }
