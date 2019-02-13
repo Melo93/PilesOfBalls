@@ -14,6 +14,7 @@ import it.unical.mat.embasp.base.Handler;
 import it.unical.mat.embasp.base.InputProgram;
 import it.unical.mat.embasp.base.Output;
 import it.unical.mat.embasp.languages.asp.ASPInputProgram;
+import it.unical.mat.embasp.languages.asp.ASPMapper;
 import it.unical.mat.embasp.languages.asp.AnswerSet;
 import it.unical.mat.embasp.languages.asp.AnswerSets;
 import it.unical.mat.embasp.platforms.desktop.DesktopHandler;
@@ -25,7 +26,7 @@ public class DLVMain {
 	private static String encodingResource="encodings/regole";
 	private int xMediaFinal;
 	private int rotationFInal;
-	private List<FinalPositionDlv> fpt=new ArrayList<>(); 
+	private List<BestPositionFinalDlv> bpf=new ArrayList<>(); 
 	
 	public void dlv(){
 		
@@ -54,12 +55,19 @@ public class DLVMain {
 				
 			}
 		}
-		
+		System.out.println(fact.getPrograms().toString());
 		InputProgram encoding= new ASPInputProgram();
 		encoding.addFilesPath(encodingResource);
 		encoding.addProgram(getEncodings(encodingResource));
 		handler.addProgram(fact);
 		handler.addProgram(encoding);
+		
+		try {
+			ASPMapper.getInstance().registerClass(BestPositionFinalDlv.class);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		
 		Output o = handler.startSync();
@@ -68,9 +76,9 @@ public class DLVMain {
 		for(AnswerSet a:answers.getAnswersets()) {
 			try {
 				for(Object obj:a.getAtoms()) {
-					if(obj instanceof FinalPositionDlv) {
-						FinalPositionDlv tb=(FinalPositionDlv) obj;
-						fpt.add(tb);
+					if(obj instanceof BestPositionFinalDlv) {
+						BestPositionFinalDlv tb=(BestPositionFinalDlv) obj;
+						bpf.add(tb);
 					}
 				
 				}
@@ -80,9 +88,9 @@ public class DLVMain {
 			} 
 		}
 		
-		xMediaFinal=fpt.get(fpt.size()-1).getXM();
-		rotationFInal=fpt.get(fpt.size()-1).getRotation();
-		System.out.println(fpt.size());
+		xMediaFinal=bpf.get(0).getXM();
+		rotationFInal=bpf.get(0).getR();
+		System.out.println(bpf.size());
 		
 	}
 	

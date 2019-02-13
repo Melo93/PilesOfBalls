@@ -83,30 +83,30 @@ public class Ball extends Rectangle implements Cloneable{
 							if(tb.getRotate()%2!=0) {
 								if(this.x%2!=0 && b.x%2!=0 && this.x+2==b.x) {
 									this.translate(-1, 0);
-									this.setCenter(this.x+1,this.y+1);
+									this.setCenter(this.getCenter().x-1,this.getCenter().y);
 									b.translate(1, 0);
-									b.setCenter(b.x+1, b.y+1);
+									b.setCenter(b.center.x+1,b.center.y);
 									break;
 								}
 								else if(this.x%2!=0 && b.x%2!=0 && this.x-2==b.x) {
 									this.translate(1, 0);
-									this.setCenter(this.x+1,this.y+1);
+									this.setCenter(this.getCenter().x+1,this.getCenter().y);
 									b.translate(-1, 0);
-									b.setCenter(b.x+1, b.y+1);
+									b.setCenter(b.getCenter().x-1,b.getCenter().y);
 									break;
 								}
 								if(this.x%2!=0 && b1.x%2!=0 && this.x+2==b1.x) {
 									this.translate(-1, 0);
-									this.setCenter(this.x+1,this.y+1);
+									this.setCenter(this.getCenter().x-1,this.getCenter().y);
 									b1.translate(1, 0);
-									b1.setCenter(b1.x+1, b1.y+1);
+									b1.setCenter(b1.getCenter().x+1, b1.getCenter().y);
 									break;
 								}
 								else if(this.x%2!=0 && b1.x%2!=0 && this.x-2==b1.x) {
 									this.translate(1, 0);
-									this.setCenter(this.x+1,this.y+1);
+									this.setCenter(this.getCenter().x+1,this.getCenter().y);
 									b1.translate(-1, 0);
-									b1.setCenter(b1.x+1, b1.y+1);
+									b1.setCenter(b1.getCenter().x-1,b1.getCenter().y);
 									break;
 								}
 							}
@@ -117,18 +117,18 @@ public class Ball extends Rectangle implements Cloneable{
 										this.translate(-1, 0);
 										b.translate(-1, 0);
 										b1.translate(-1, 0);
-										this.setCenter(this.x+1,this.y+1);
-										b.setCenter(b.x+1,b.y+1);
-										b1.setCenter(b1.x+1,b1.y+1);
+										this.setCenter(this.getCenter().x-1,this.getCenter().y);
+										b.setCenter(b.getCenter().x-1,b.getCenter().y);
+										b1.setCenter(b1.getCenter().x-1,b1.getCenter().y);
 										break;
 									}
-									else {
+									else if(x<=19) {
 										this.translate(1, 0);
 										b.translate(1, 0);
 										b1.translate(1, 0);
-										this.setCenter(this.x+1,this.y+1);
-										b.setCenter(b.x+1,b.y+1);
-										b1.setCenter(b1.x+1,b1.y+1);
+										this.setCenter(this.getCenter().x+1,this.getCenter().y);
+										b.setCenter(b.getCenter().x+1,b.getCenter().y);
+										b1.setCenter(b1.getCenter().x+1,b1.getCenter().y);
 										break;
 									}
 								}
@@ -283,6 +283,8 @@ public class Ball extends Rectangle implements Cloneable{
 			daControllare.add(b);
 			if(cercaUguali(b, balls, controllate, daControllare)) {
 				if(controllate.size() >= 4) {
+					int tempScore=controllate.size()*10;
+					GameManager.getInstance().setScore(GameManager.getInstance().getScore()+tempScore);
 					balls.removeAll(controllate);
 					//for(Ball b1 : balls){
 					//b1.setStop(false);

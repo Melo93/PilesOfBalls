@@ -1,6 +1,8 @@
 package filanti.gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
@@ -141,9 +143,14 @@ public class PlayPanel extends JPanel{
 		speedButton.setOpaque(false);
 		speedButton.setContentAreaFilled(false);
 		speedButton.setBorderPainted(false);
+		
+		
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 50)); 
+		g.setColor(new Color(255, 0, 0));
+		g.drawString(String.valueOf(GameManager.getInstance().getScore()), GameConfig.logicToGraphic(5,22).x ,GameConfig.logicToGraphic(5,22).y );
 
 //		paintTrisBall(g, t);
-//		paintTrisBall(g, t1);
+		paintTrisBall(g, t1);
 		paintBalls(g);
 		
 	}

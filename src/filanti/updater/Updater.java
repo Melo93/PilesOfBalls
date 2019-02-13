@@ -59,9 +59,9 @@ public class Updater extends Thread {
 					if(!callDLV) {
 						dlv=new DLVMain();					
 						dlv.dlv();
+						spostaTris();
 						callDLV=true;
 					}
-					spostaTris();
 //					System.out.println(GameManager.getInstance().getCurrent() + " " + GameManager.getInstance().getBalls());
 					GameManager.getInstance().getCurrent().update(GameManager.getInstance().getBalls());
 					pp.repaint();
@@ -78,6 +78,8 @@ public class Updater extends Thread {
 	private void spostaTris() {
 		while(GameManager.getInstance().getCurrent().getRotate() != dlv.getRotationFInal()) {
 			GameManager.getInstance().getCurrent().setRotate(GameManager.getInstance().getCurrent().getRotate()+1);
+			GameManager.getInstance().getCurrent().rotateLeft();
+			
 			try {
 				sleep(30);
 			} catch (InterruptedException e) {
@@ -88,20 +90,20 @@ public class Updater extends Thread {
 		}
 		while(xMedia() != dlv.getxMediaFinal()) {
 			if(dlv.getxMediaFinal()<19) {
-				GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x+1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
 				GameManager.getInstance().getCurrent().getB1().translate(-1, 0);
-				GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x+1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
 				GameManager.getInstance().getCurrent().getB2().translate(-1, 0);
-				GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x+1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
 				GameManager.getInstance().getCurrent().getB3().translate(-1, 0);
+				GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x-1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
+				GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x-1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
+				GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x-1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
 			}
 			else if(dlv.getxMediaFinal()>19) {
-				GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x+1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
 				GameManager.getInstance().getCurrent().getB1().translate(+1, 0);
-				GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x+1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
 				GameManager.getInstance().getCurrent().getB2().translate(+1, 0);
-				GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x+1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
 				GameManager.getInstance().getCurrent().getB3().translate(+1, 0);
+				GameManager.getInstance().getCurrent().getB1().setCenter(new Point(GameManager.getInstance().getCurrent().getB1().getCenter().x+1,GameManager.getInstance().getCurrent().getB1().getCenter().y));
+				GameManager.getInstance().getCurrent().getB2().setCenter(new Point(GameManager.getInstance().getCurrent().getB2().getCenter().x+1,GameManager.getInstance().getCurrent().getB2().getCenter().y));
+				GameManager.getInstance().getCurrent().getB3().setCenter(new Point(GameManager.getInstance().getCurrent().getB3().getCenter().x+1,GameManager.getInstance().getCurrent().getB3().getCenter().y));
 			}
 			
 			try {

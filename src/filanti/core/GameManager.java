@@ -7,6 +7,7 @@ public class GameManager {
 	private TrisBalls current;
 	private TrisBalls next;
 	private CopyOnWriteArrayList<Ball> balls;
+	private int score;
 	
 	public static GameManager getInstance() {
 		if(instance==null) {
@@ -23,6 +24,7 @@ public class GameManager {
 		balls.add(current.getB2());
 		balls.add(current.getB3());
 		next=new TrisBalls();
+		score=0;
 	}
 	
 	public void update() {
@@ -122,5 +124,14 @@ public class GameManager {
 		this.balls = balls;
 	}
 
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	
 	
 }

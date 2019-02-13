@@ -3,8 +3,7 @@
 %Guess
 bestPosition(XM,R) | notBestPosition(XM,R):- fPt(_,_,_,_,_,_,_,_,_,XM,R).
 
-:- #count{XM,R: bestPosition(XM,R)} > 1. 
-:- #count{XM,R: bestPosition(XM,R)} = 0.
+:- not #count{XM,R: bestPosition(XM,R)} = 1. 
 
 %adiacenza centro sinistra
 aCs(fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3),N) :- fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3,_,_), #count{Xb1: ball(Xb1,Yb1,C1), Xb1 = X1 - 2, Yb1 = Y1} = N1, #count{Xb2: ball(Xb2,Yb2,C2), Xb2 = X2 - 2, Yb2 = Y2} = N2, #count{Xb3: ball(Xb3,Yb3,C3), Xb3 = X3 - 2, Yb3 = Y3} = N3, Temp = N1+N2, N = Temp + N3.  
@@ -22,3 +21,6 @@ aDb(fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3),N) :- fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3,_,_), #
 aT(fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3),T) :- aCs(fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3),N1), aCd(fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3),N2), aSb(fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3),N3), aDb(fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3),N4), Temp1 = N1 + N2, Temp2 = N3 + N4, T = Temp1 + Temp2.
 
 :~ notBestPosition(XM,R), fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3,XM,R), aT(fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3),T). [T:1]
+:~ notBestPosition(XM,R), fPt(X1,Y1,C1,X2,Y2,C2,X3,Y3,C3,XM,R), Y=Y1+Y2, Tot = Y3 + Y. [Tot:3] 
+:~ notBestPosition(XM,R), #absdiff(XM,19,Z). [Z:2]
+:~ notBestPosition(XM,R). [R:1]
