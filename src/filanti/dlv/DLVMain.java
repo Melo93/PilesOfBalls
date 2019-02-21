@@ -27,32 +27,49 @@ public class DLVMain {
 	private int xMediaFinal;
 	private int rotationFInal;
 	private List<BestPositionFinalDlv> bpf=new ArrayList<>(); 
-	
+	private List<FinalPositionCurrentDlv> fptc=new ArrayList<>(); 
+
 	public void dlv(){
-		
+
 		handler=new DesktopHandler(new DLVDesktopService("lib/dlv.mingw.exe"));
 		InputProgram fact = new ASPInputProgram();
-		
-		
-		for(Ball b:GameManager.getInstance().getBalls()) {
-			if(!b.isTrisball()) {
-				try {
-					fact.addObjectInput(new BallDLV(b.x, b.y, b.getColor()));
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
+
+
+//		for(Ball b:GameManager.getInstance().getBalls()) {
+//			if(!b.isTrisball()) {
+//				try {
+//					fact.addObjectInput(new BallDLV(b.x, b.y, b.getColor()));
+//				} catch (Exception e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//		}
 		for(int i=11;i<28;i++) {
 			for(int j=1;j<7;j++) {
 				try {
 					fact.addObjectInput(findPossiblePosition(i,j));
+
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
+			}
+		}
+
+		for(FinalPositionCurrentDlv fpc:fptc) {
+			for(int i=11;i<28;i++) {
+				for(int j=1;j<7;j++) {
+					try {
+						fact.addObjectInput(findPossiblePositionNext(i,j,fpc));
+
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
 			}
 		}
 		System.out.println(fact.getPrograms().toString());
@@ -61,39 +78,42 @@ public class DLVMain {
 		encoding.addProgram(getEncodings(encodingResource));
 		handler.addProgram(fact);
 		handler.addProgram(encoding);
-		
+
 		try {
 			ASPMapper.getInstance().registerClass(BestPositionFinalDlv.class);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
+
 		Output o = handler.startSync();
-		
+
 		AnswerSets answers= (AnswerSets) o;
 		for(AnswerSet a:answers.getAnswersets()) {
 			try {
 				for(Object obj:a.getAtoms()) {
 					if(obj instanceof BestPositionFinalDlv) {
 						BestPositionFinalDlv tb=(BestPositionFinalDlv) obj;
+						//System.out.println(tb.toString());
 						bpf.add(tb);
 					}
-				
+
 				}
+				//System.out.println();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
 		}
-		
+
 		xMediaFinal=bpf.get(0).getXM();
 		rotationFInal=bpf.get(0).getR();
-		System.out.println(bpf.size());
-		
+		System.out.println(answers.getAnswersets().size());
+
 	}
-	
+
+
 	public int getxMediaFinal() {
 		return xMediaFinal;
 	}
@@ -110,54 +130,152 @@ public class DLVMain {
 		this.rotationFInal = rotationFInal;
 	}
 
-	private FinalPositionDlv findPossiblePosition(int xmedia, int rotation) {
+	private FinalPositionCurrentDlv findPossiblePosition(int xmedia, int rotation) {
 		TrisBalls t=new TrisBalls();
 		t.initTrisBall();
 		CopyOnWriteArrayList<Ball> ball=new CopyOnWriteArrayList<>();
-		
-		ball.add(t.getB1());
-		ball.add(t.getB2());
-		ball.add(t.getB3());
-		
-		for(Ball b:GameManager.getInstance().getBalls()) {
-			if(!b.isTrisball())
-				ball.add(b.clone());
-		}
-		
-//		System.out.println(t + " " + ball);
-//		System.out.println();
-		
+		int tempScore=0;
+		int equalsColorBall = 0; 
+	
 		t.getB1().x=xmedia;
 		t.getB2().x=xmedia-1;
 		t.getB3().x=xmedia+1;
 		t.getB1().setColor(GameManager.getInstance().getCurrent().getB1().getColor());
 		t.getB2().setColor(GameManager.getInstance().getCurrent().getB2().getColor());
 		t.getB3().setColor(GameManager.getInstance().getCurrent().getB3().getColor());
-		
-		
+
+		ball.add(t.getB1());
+		ball.add(t.getB2());
+		ball.add(t.getB3());
+
+		for(Ball b:GameManager.getInstance().getBalls()) {
+			if(!b.isTrisball()) {
+				ball.add(b.clone());
+			}
+		}
+
+		//		System.out.println(t + " " + ball);
+		//		System.out.println();
+
+
+
 		while (t.getRotate()!=rotation) {
-			if(rotation==1) continue;
+			if(rotation==1) {
+				continue;
+			}
 			t.setRotate(t.getRotate()+1);
 			t.rotateLeft();
-			
+
 		}
-		
+
 		while(!t.getB1().posizioneFinaleTrovata(ball) || !t.getB2().posizioneFinaleTrovata(ball)||!t.getB3().posizioneFinaleTrovata(ball) ) {
 			t.update(ball);
 		}
-		
-		return new FinalPositionDlv(t.getB1().x,t.getB1().y,t.getB1().getColor(),
-									t.getB2().x,t.getB2().y,t.getB2().getColor(),
-									t.getB3().x,t.getB3().y,t.getB3().getColor(),
-									xmedia, rotation);
+		for(Ball b: ball) {
+			CopyOnWriteArrayList<Ball> controllate = new CopyOnWriteArrayList<>();
+			CopyOnWriteArrayList<Ball> daControllare = new CopyOnWriteArrayList<>();
+			daControllare.add(b);
+			if(b.cercaUguali(b, ball, controllate, daControllare)) {
+				if(controllate.size() >= 4) {
+					tempScore+=controllate.size();
+				}
+				equalsColorBall += controllate.size();
+			}
+			
+		}
+
+		fptc.add(new FinalPositionCurrentDlv(t.getB1().x,t.getB1().y,t.getB1().getColor(),
+				t.getB2().x,t.getB2().y,t.getB2().getColor(),
+				t.getB3().x,t.getB3().y,t.getB3().getColor(),
+				xmedia, rotation,tempScore,equalsColorBall));
+
+		return new FinalPositionCurrentDlv(t.getB1().x,t.getB1().y,t.getB1().getColor(),
+				t.getB2().x,t.getB2().y,t.getB2().getColor(),
+				t.getB3().x,t.getB3().y,t.getB3().getColor(),
+				xmedia, rotation,tempScore,equalsColorBall);
 	}
 
-//	private static int xMedia() {
-//		return (GameManager.getInstance().getCurrent().getB1().x+
-//				GameManager.getInstance().getCurrent().getB2().x+
-//				GameManager.getInstance().getCurrent().getB3().x)/3;
-//	}
-	
+	private FinalPositionNextDlv findPossiblePositionNext(int xmedia, int rotation, FinalPositionCurrentDlv current) {
+		TrisBalls t=new TrisBalls();
+		t.initTrisBall();
+		CopyOnWriteArrayList<Ball> ball=new CopyOnWriteArrayList<>();
+		int tempScore=0;
+		int equalsColorBall=0;
+		
+		t.getB1().x=xmedia;
+		t.getB2().x=xmedia-1;
+		t.getB3().x=xmedia+1;
+		t.getB1().setColor(GameManager.getInstance().getNext().getB1().getColor());
+		t.getB2().setColor(GameManager.getInstance().getNext().getB2().getColor());
+		t.getB3().setColor(GameManager.getInstance().getNext().getB3().getColor());
+
+		Ball temp1=new Ball(current.getC1(), current.getX1(), current.getY1());
+		Ball temp2=new Ball(current.getC2(), current.getX2(), current.getY2());
+		Ball temp3=new Ball(current.getC3(), current.getX3(), current.getY3());
+		
+		temp1.setTrisball(false);
+		temp2.setTrisball(false);
+		temp3.setTrisball(false);
+		
+		ball.add(t.getB1());
+		ball.add(t.getB2());
+		ball.add(t.getB3());
+		ball.add(temp1);
+		ball.add(temp2);
+		ball.add(temp3);
+
+		for(Ball b:GameManager.getInstance().getBalls()) {
+			if(!b.isTrisball()) {
+				ball.add(b.clone());
+			}
+		}
+
+		//	System.out.println(t + " " + ball);
+		//	System.out.println();
+
+
+
+		while (t.getRotate()!=rotation) {
+			if(rotation==1) {
+				continue;
+			}
+			t.setRotate(t.getRotate()+1);
+			t.rotateLeft();
+
+		}
+
+		while(!t.getB1().posizioneFinaleTrovata(ball) || !t.getB2().posizioneFinaleTrovata(ball)||!t.getB3().posizioneFinaleTrovata(ball) ) {
+			t.update(ball);
+		}
+		for(Ball b: ball) {
+			CopyOnWriteArrayList<Ball> controllate = new CopyOnWriteArrayList<>();
+			CopyOnWriteArrayList<Ball> daControllare = new CopyOnWriteArrayList<>();
+			daControllare.add(b);
+			if(b.cercaUguali(b, ball, controllate, daControllare)) {
+				if(controllate.size() >= 4) {
+					tempScore+=controllate.size();
+				}
+				equalsColorBall += controllate.size();
+			}
+
+
+		}
+
+			return new FinalPositionNextDlv(t.getB1().x,t.getB1().y,t.getB1().getColor(),
+					t.getB2().x,t.getB2().y,t.getB2().getColor(),
+					t.getB3().x,t.getB3().y,t.getB3().getColor(),
+					xmedia, rotation,tempScore,equalsColorBall);
+
+
+	}
+
+
+	//	private static int xMedia() {
+	//		return (GameManager.getInstance().getCurrent().getB1().x+
+	//				GameManager.getInstance().getCurrent().getB2().x+
+	//				GameManager.getInstance().getCurrent().getB3().x)/3;
+	//	}
+
 	private static String getEncodings(String encodingResource2) {
 		BufferedReader reader;
 		StringBuilder builder = new StringBuilder();

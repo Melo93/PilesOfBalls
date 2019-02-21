@@ -41,6 +41,5 @@ public class GameFrame extends JFrame{
 		p1.requestFocus();
 		p1.updateUI();
 		p1.setVisible(true);
-		p1.start();
 	}
 }

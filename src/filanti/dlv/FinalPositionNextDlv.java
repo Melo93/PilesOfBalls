@@ -3,8 +3,8 @@ package filanti.dlv;
 import it.unical.mat.embasp.languages.Id;
 import it.unical.mat.embasp.languages.Param;
 
-@Id("fPt")
-public class FinalPositionDlv {
+@Id("fPt2")
+public class FinalPositionNextDlv {
 	
 	@Param(0)
 	private int x1;
@@ -28,13 +28,17 @@ public class FinalPositionDlv {
 	private int xM;
 	@Param(10)
 	private int rotation;
+	@Param(11)
+	private int tempScore;
+	@Param(12)
+	private int equalsColor;
 	
-	public FinalPositionDlv() {
+	public FinalPositionNextDlv() {
 		super();
 	}
 
-	public FinalPositionDlv(int x1, int y1, int c1, int x2, int y2, int c2, int x3, int y3, int c3, int xM,
-			int rotation) {
+	public FinalPositionNextDlv(int x1, int y1, int c1, int x2, int y2, int c2, int x3, int y3, int c3, int xM,
+			int rotation,int tempScore, int equalsColor) {
 		super();
 		this.x1 = x1;
 		this.y1 = y1;
@@ -47,6 +51,8 @@ public class FinalPositionDlv {
 		this.c3 = c3;
 		this.xM = xM;
 		this.rotation = rotation;
+		this.tempScore=tempScore;
+		this.equalsColor=equalsColor;
 	}
 
 	public int getX1() {
@@ -137,13 +143,29 @@ public class FinalPositionDlv {
 		this.rotation = rotation;
 	}
 
+	public int getTempScore() {
+		return tempScore;
+	}
+
+	public void setTempScore(int tempScore) {
+		this.tempScore = tempScore;
+	}
+
+	
+	public int getEqualsColor() {
+		return equalsColor;
+	}
+
+	public void setEqualsColor(int equalsColor) {
+		this.equalsColor = equalsColor;
+	}
+
 	@Override
 	public String toString() {
-		return "FinalPositionDlv [x1=" + x1 + ", y1=" + y1 + ", c1=" + c1 + ", x2=" + x2 + ", y2=" + y2 + ", c2=" + c2
-				+ ", x3=" + x3 + ", y3=" + y3 + ", c3=" + c3 + ", xM=" + xM + ", rotation=" + rotation + "]";
+		return "FinalPositionNextDlv [x1=" + x1 + ", y1=" + y1 + ", c1=" + c1 + ", x2=" + x2 + ", y2=" + y2 + ", c2=" + c2
+				+ ", x3=" + x3 + ", y3=" + y3 + ", c3=" + c3 + ", xM=" + xM + ", rotation=" + rotation + ", tempScore="
+				+ tempScore + "]";
 	}
-	
-	
 	
 	
 }

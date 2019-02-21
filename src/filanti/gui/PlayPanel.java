@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
@@ -36,6 +38,7 @@ public class PlayPanel extends JPanel{
 	KeyboardManager keyManager;
 	MouseManager mouseManager;
 	KeyEvent key;
+	
 
 	public PlayPanel(GameFrame gameFrame) {
 		this.setVisible(true);
@@ -46,7 +49,13 @@ public class PlayPanel extends JPanel{
 		
 		backButton = new JButton(new ImageIcon(ImageProvider.getBack2()));
 		backButton.setRolloverIcon(new ImageIcon(ImageProvider.getBack1()));
-		backButton.addActionListener(e -> gameFrame.startMenuPanel());
+		backButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
 
 		leftButton = new JButton(new ImageIcon(ImageProvider.getLeft2())); 
 		leftButton.setRolloverIcon(new ImageIcon(ImageProvider.getLeft()));
@@ -224,9 +233,13 @@ public class PlayPanel extends JPanel{
 	public void setSpeedButton(JButton speedButton) {
 		this.speedButton = speedButton;
 	}
-
-	public void start() {
-		//matrix.start();
+	public Updater getUpdate() {
+		return update;
 	}
+	public void setUpdate(Updater update) {
+		this.update = update;
+	}
+
+	
 
 }
